@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Patterns</title>
+<meta name="description" content="Patterns to grow algebraic thinking and reasoning.">
+
+<!-- ================================================================
+     FONTS — clean neutral sans, in the spirit of the current site.
+     Montserrat for the wordmark/headings, Inter for everything else.
+     Swap these two names if you learn the exact fonts Squarespace uses.
+     ================================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:      #FFFFFF;   /* page background         */
+    --card:    #FFFFFF;   /* pattern card background  */
+    --ink:     #2A2A2A;   /* headings, pattern labels */
+    --muted:   #767676;   /* attributions, notes      */
+    --rule:    #E6E6E3;   /* hairline dividers        */
+    --accent:  #3F6076;   /* quiet slate: links + active tab only */
+    --shadow:  0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.04);
+
+    --display: "Montserrat", system-ui, sans-serif;
+    --body:    "Inter", system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:var(--body); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Header ---------- */
+  header{ text-align:center; padding:46px 20px 24px; }
+  h1{
+    font-family:var(--display); font-weight:700;
+    letter-spacing:.16em; text-transform:uppercase;
+    font-size:clamp(26px, 4.5vw, 40px); color:var(--ink);
+  }
+  #site-logo{
+    display:inline-block; max-height:64px; max-width:80vw; height:auto;
+  }
+  .tagline{
+    font-style:italic; color:var(--muted);
+    margin-top:10px; font-size:clamp(14px, 2vw, 17px);
+  }
+
+  .random-btn{
+    margin-top:18px; font-family:var(--body); font-size:14px;
+    color:var(--ink); background:var(--card); cursor:pointer;
+    border:1px solid var(--rule); border-radius:20px;
+    padding:8px 18px; box-shadow:var(--shadow);
+    transition:transform .1s ease, box-shadow .15s ease;
+  }
+  .random-btn:hover{ box-shadow:0 2px 6px rgba(0,0,0,.08), 0 10px 24px rgba(0,0,0,.08); }
+  .random-btn:active{ transform:scale(.97); }
+  .random-btn:disabled{ opacity:.5; cursor:default; }
+  .pattern.flash .thumb{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* ---------- Range navigation ---------- */
+  nav{ border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:16px 12px; }
+  .nav-inner{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:6px 22px; }
+  .nav-inner button, .nav-inner a{
+    font-family:var(--body); font-size:15px; color:var(--muted);
+    background:none; border:none; cursor:pointer;
+    padding:4px 2px 8px; border-bottom:2px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+    text-decoration:none; display:inline-block;
+  }
+  .nav-inner button:hover, .nav-inner a:hover{ color:var(--ink); }
+  .nav-inner button.active, .nav-inner a.active{ color:var(--ink); font-weight:600; border-bottom-color:var(--accent); }
+  .nav-inner button:focus-visible, .nav-inner a:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+  .nav-inner a{ margin-left:6px; padding-left:14px; border-left:1px solid var(--rule); }
+
+  /* ---------- Section heading ---------- */
+  .section-head{ max-width:1120px; margin:0 auto; padding:34px 24px 6px; }
+  .section-head h2{
+    font-family:var(--display); font-weight:600;
+    letter-spacing:.01em; color:var(--ink);
+    font-size:clamp(20px, 3vw, 26px);
+  }
+  .section-head .note{ font-style:italic; color:var(--muted); margin-top:8px; font-size:15px; }
+
+  /* ---------- Pattern grid ---------- */
+  .grid{
+    max-width:1120px; margin:0 auto; padding:22px 24px 60px;
+    display:grid; gap:26px 34px;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .pattern{ animation:rise .4s ease both; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:none;} }
+
+  .thumb{
+    background:var(--card); border:1px solid var(--rule);
+    border-radius:8px; box-shadow:var(--shadow);
+    aspect-ratio:16 / 9; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .thumb img{ width:100%; height:100%; object-fit:contain; padding:12px; }
+
+  .placeholder{
+    width:100%; height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:11px; color:var(--muted);
+  }
+  .placeholder .motif{ display:flex; gap:6px; opacity:.35; }
+  .placeholder .motif span{ display:block; background:var(--ink); border-radius:2px; }
+  .placeholder .motif span:nth-child(1){ width:13px; height:13px; }
+  .placeholder .motif span:nth-child(2){ width:20px; height:20px; }
+  .placeholder .motif span:nth-child(3){ width:27px; height:27px; }
+  .placeholder small{ font-size:12px; letter-spacing:.02em; }
+
+  .caption{ text-align:center; padding:13px 6px 0; }
+  .caption .label{
+    font-weight:600; color:var(--ink); font-size:15px;
+    text-transform:uppercase; letter-spacing:.02em;
+  }
+  .caption .by{ display:block; margin-top:4px; font-style:italic; color:var(--muted); font-size:14px; }
+  .caption .src-link{ text-decoration:none; font-style:normal; margin-left:2px; opacity:.6; }
+  .caption .src-link:hover{ opacity:1; }
+
+  .thumb.clickable{ cursor: zoom-in; }
+  .thumb.clickable:hover{ box-shadow: 0 2px 6px rgba(0,0,0,.08), 0 10px 24px rgba(0,0,0,.08); }
+
+  /* ---------- Lightbox ---------- */
+  #lightbox{
+    position:fixed; inset:0; background:rgba(20,20,20,.86);
+    display:none; align-items:center; justify-content:center;
+    z-index:1000; padding:32px; cursor:zoom-out;
+  }
+  #lightbox.open{ display:flex; }
+  #lightbox .lb-inner{
+    max-width:min(1100px, 92vw); max-height:88vh;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+    cursor:default;
+  }
+  #lightbox img{
+    max-width:100%; max-height:72vh; object-fit:contain;
+    background:#fff; border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  #lightbox .lb-caption{ text-align:center; color:#fff; }
+  #lightbox .lb-caption .label{
+    font-weight:600; font-size:17px; text-transform:uppercase; letter-spacing:.02em;
+  }
+  #lightbox .lb-caption .by{ display:block; margin-top:6px; font-style:italic; color:#cfcfcf; font-size:14px; }
+  #lightbox .lb-close{
+    position:absolute; top:20px; right:26px;
+    color:#fff; font-size:32px; line-height:1; background:none; border:none;
+    cursor:pointer; opacity:.8;
+  }
+  #lightbox .lb-close:hover{ opacity:1; }
+
+  footer{
+    border-top:1px solid var(--rule); text-align:center;
+    padding:26px 20px 40px; color:var(--muted); font-size:13px;
+  }
+  footer p + p{ margin-top:6px; }
+  footer a{ color:var(--accent); text-decoration:none; }
+  footer a:hover{ text-decoration:underline; }
+
+  @media (prefers-reduced-motion: reduce){ .pattern{ animation:none; } }
+</style>
+</head>
+
+<body>
+  <header>
+    <img id="site-logo" src="assets/logo.png" alt="Visual Patterns logo"
+         onerror="this.outerHTML='<h1>Visual Patterns</h1>'">
+    <p class="tagline">Patterns to grow algebraic thinking and reasoning.</p>
+    <button id="random-btn" class="random-btn">&#127920; Random Pattern</button>
+  </header>
+
+  <nav><div class="nav-inner" id="ranges"></div></nav>
+
+  <div class="section-head">
+    <h2 id="range-title">Patterns 1&ndash;50</h2>
+    <p class="note">The number of objects listed under each pattern is for step 43 in that sequence.</p>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div id="lightbox" onclick="if(event.target===this) closeLightbox()">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <div class="lb-inner">
+      <img id="lb-img" src="" alt="">
+      <div class="lb-caption">
+        <span class="label" id="lb-label"></span>
+        <span class="by" id="lb-by"></span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Copyright &copy; 2026 Visual Patterns by <a href="https://fawnnguyen.substack.com" target="_blank" rel="noopener">Fawn Nguyen</a>.</p>
+    <p>This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+  </footer>
+
+
+<script src="patterns-data.js"></script>
+<script>
+/* ====================================================================
+   THE ONLY PART YOU EDIT: your list of patterns.
+
+     { n: 4, count: "173 squares", by: "John Golden", img: "images/pattern-4.png" },
+
+     n     = pattern number
+     count = objects at step 43  ("130 hexagons", "132 segments", "£17.20")
+     by    = who submitted it  (use "" if unknown)
+     img   = image file, e.g. "images/pattern-4.png"
+             Leave img off and a placeholder shows, so you can list a
+             pattern before its picture is redrawn.
+
+   ADD: copy a line, change the numbers, drop the image in images/.
+   REMOVE: delete its line.  (The page sorts by number for you.)
+   ==================================================================== */
+
+// Pattern data now lives in patterns-data.js (loaded via <script> tag above).
+
+/* ---- Machinery below. You shouldn't need to touch it. ---- */
+
+const RANGE_SIZE = 50, MAX = 500;
+const grid = document.getElementById("grid");
+const rangesEl = document.getElementById("ranges");
+const titleEl = document.getElementById("range-title");
+let activeLo = Number(localStorage.getItem("vp-active-range")) || 1;
+
+function buildRanges(){
+  for(let lo = 1; lo <= MAX; lo += RANGE_SIZE){
+    const hi = lo + RANGE_SIZE - 1;
+    const b = document.createElement("button");
+    b.textContent = `${lo}\u2013${hi}`;
+    b.dataset.lo = lo;
+    b.onclick = () => { activeLo = lo; localStorage.setItem("vp-active-range", lo); render(); };
+    rangesEl.appendChild(b);
+  }
+
+  // Workshop sits after the last range, styled the same way, but links to its own page
+  const workshopLink = document.createElement("a");
+  workshopLink.textContent = "Workshop";
+  workshopLink.href = "workshop.html";
+  rangesEl.appendChild(workshopLink);
+}
+
+function render(){
+  const hi = activeLo + RANGE_SIZE - 1;
+  titleEl.innerHTML = `Patterns ${activeLo}\u2013${hi}`;
+  [...rangesEl.children].forEach(b => b.classList.toggle("active", Number(b.dataset.lo) === activeLo));
+
+  const inRange = patterns.filter(p => p.n >= activeLo && p.n <= hi).sort((a,b) => a.n - b.n);
+  grid.innerHTML = inRange.map(cardHTML).join("") ||
+    `<p style="grid-column:1/-1;color:var(--muted);font-style:italic;padding:20px 0;">No patterns in this range yet.</p>`;
+}
+
+function escAttr(s){
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;");
+}
+
+function cardHTML(p){
+  const hasImg = !!p.img;
+  const media = hasImg
+    ? `<img src="${p.img}" alt="Pattern ${p.n}" onerror="this.closest('.thumb').classList.remove('clickable'); this.parentNode.innerHTML=placeholder(${p.n})">`
+    : placeholder(p.n);
+  const linkIcon = p.link
+    ? ` <a href="${escAttr(p.link)}" target="_blank" rel="noopener" class="src-link" title="View original source" onclick="event.stopPropagation()">&#128279;</a>`
+    : "";
+  const by = p.by ? `<span class="by">by ${p.by}${linkIcon}</span>` : "";
+  const label = p.count
+    ? `Pattern ${p.n} &middot; ${p.count}`
+    : `Pattern ${p.n} &middot; <em>count TBD</em>`;
+  const dataAttrs = hasImg
+    ? ` data-img="${escAttr(p.img)}" data-label="${escAttr(label)}" data-by="${escAttr(p.by||"")}"`
+    : "";
+  return `<div class="pattern">
+      <div class="thumb${hasImg ? " clickable" : ""}"${dataAttrs}>${media}</div>
+      <div class="caption">
+        <span class="label">${label}</span>${by}
+      </div>
+    </div>`;
+}
+
+function openLightbox(img, label, by){
+  document.getElementById("lb-img").src = img;
+  document.getElementById("lb-label").innerHTML = label;
+  document.getElementById("lb-by").textContent = by ? `by ${by}` : "";
+  document.getElementById("lightbox").classList.add("open");
+}
+
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("open");
+}
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeLightbox();
+});
+
+// Event delegation: catch clicks on any clickable thumb, present or future
+document.getElementById("grid").addEventListener("click", (e) => {
+  const thumb = e.target.closest(".thumb.clickable");
+  if(!thumb) return;
+  openLightbox(thumb.dataset.img, thumb.dataset.label, thumb.dataset.by);
+});
+
+function placeholder(n){
+  return `<div class="placeholder">
+            <span class="motif"><span></span><span></span><span></span></span>
+            <small>Pattern ${n} &middot; add image</small>
+          </div>`;
+}
+
+function goToRandomPattern(){
+  const btn = document.getElementById("random-btn");
+  btn.disabled = true;
+  btn.textContent = "Finding one...";
+
+  let tries = 0;
+  const maxTries = 60;
+
+  function attempt(){
+    tries++;
+    if(tries > maxTries){
+      btn.disabled = false;
+      btn.innerHTML = "&#127920; Random Pattern";
+      alert("Couldn't find a finished pattern yet — add some images first!");
+      return;
+    }
+    const n = Math.floor(Math.random() * MAX) + 1;
+    const p = patterns.find(x => x.n === n);
+    if(!p || !p.img){ return attempt(); }
+
+    const test = new Image();
+    test.onload = () => {
+      const lo = Math.floor((n - 1) / RANGE_SIZE) * RANGE_SIZE + 1;
+      activeLo = lo;
+      localStorage.setItem("vp-active-range", lo);
+      render();
+
+      requestAnimationFrame(() => {
+        const thumb = document.querySelector(`.thumb[data-img="${CSS.escape(p.img)}"]`);
+        btn.disabled = false;
+        btn.innerHTML = "&#127920; Random Pattern";
+        if(!thumb){ return; }
+        thumb.scrollIntoView({ behavior: "smooth", block: "center" });
+        thumb.closest(".pattern").classList.add("flash");
+        setTimeout(() => thumb.closest(".pattern").classList.remove("flash"), 1500);
+        setTimeout(() => {
+          openLightbox(thumb.dataset.img, thumb.dataset.label, thumb.dataset.by);
+        }, 450);
+      });
+    };
+    test.onerror = () => attempt();
+    test.src = p.img;
+  }
+  attempt();
+}
+
+document.getElementById("random-btn").addEventListener("click", goToRandomPattern);
+
+buildRanges();
+render();
+</script>
+</body>
+</html>
