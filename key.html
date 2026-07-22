@@ -258,6 +258,8 @@ function formatEquation(eq){
 
 function classify(eq){
   if(!eq || !eq.trim()) return "missing";
+  // absolute-value patterns are V-shaped, not a straight line -> "other"
+  if(/abs\s*\(/i.test(eq) || /\|.*\|/.test(eq)) return "other";
   // exponential growth (something raised to the n, like 3^n or 2^n) is always "other"
   if(/\^\s*n\b/i.test(eq)) return "other";
   const hasHigherPower = /n\s*(\^|\*\*)\s*[3-9]/i.test(eq);
