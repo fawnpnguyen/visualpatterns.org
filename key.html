@@ -173,21 +173,52 @@ function buildRanges(){
 // stacked fraction with a horizontal bar (only handles one division per
 // equation, which covers every pattern we've written so far).
 function superscript(s){
-  return s.replace(/\^(-?\d+)/g, "<sup>$1</sup>");
+  // Matches ^word (like ^2, ^n) or ^(...) with up to one level of nested parens
+  // (covers things like ^(n-2) and ^((n+3)/2)).
+  return s.replace(/\^(\([^()]*(?:\([^()]*\)[^()]*)*\)|-?\w+)/g, "<sup>$1</sup>");
 }
 
-function formatEquation(eq){
-  const parts = eq.split("/");
-  if(parts.length === 2){
-    const num = superscript(parts[0].trim());
-    const den = superscript(parts[1].trim());
-    return `<span class="frac"><span class="fnum">${num}</span><span class="fden">${den}</span></span>`;
+// Formats one "label = expression" piece: keeps the label as plain text,
+// and only turns the expression into a stacked fraction / superscript.
+function isBalanced(s){
+  let depth = 0;
+  for(const ch of s){
+    if(ch === "(") depth++;
+    if(ch === ")") depth--;
+    if(depth < 0) return false;
   }
-  return superscript(eq);
+  return depth === 0;
+}
+
+function formatPart(part){
+  part = part.replace(/sqrt\(/gi, "&radic;(");
+  const eqIdx = part.indexOf("=");
+  let prefix = "", expr = part;
+  if(eqIdx !== -1){
+    prefix = part.slice(0, eqIdx + 1) + " ";
+    expr = part.slice(eqIdx + 1).trim();
+  }
+  const slashParts = expr.split("/");
+  // Only treat this as a real top-level fraction if the slash isn't buried
+  // inside an open parenthesis (e.g. the "/" in "2^((n+3)/2)" stays as-is).
+  if(slashParts.length === 2 && isBalanced(slashParts[0])){
+    const num = superscript(slashParts[0].trim());
+    const den = superscript(slashParts[1].trim());
+    return prefix + `<span class="frac"><span class="fnum">${num}</span><span class="fden">${den}</span></span>`;
+  }
+  return prefix + superscript(expr);
+}
+
+// Splits on commas first (for multi-quantity equations like "s = ..., c = ...")
+// so a fraction in one part never accidentally swallows the other parts.
+function formatEquation(eq){
+  return eq.split(",").map(part => formatPart(part.trim())).join(", ");
 }
 
 function classify(eq){
   if(!eq || !eq.trim()) return "missing";
+  // exponential growth (something raised to the n, like 3^n or 2^n) is always "other"
+  if(/\^\s*n\b/i.test(eq)) return "other";
   const hasHigherPower = /n\s*(\^|\*\*)\s*[3-9]/i.test(eq);
   if(hasHigherPower) return "other";
   const hasSquare = /n\s*(\^|\*\*)?\s*2|n\s*²|n\s*\*\s*n/i.test(eq);
