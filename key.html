@@ -260,8 +260,14 @@ function classify(eq){
   if(!eq || !eq.trim()) return "missing";
   // absolute-value patterns are V-shaped, not a straight line -> "other"
   if(/abs\s*\(/i.test(eq) || /\|.*\|/.test(eq)) return "other";
-  // exponential growth (something raised to the n, like 3^n or 2^n) is always "other"
-  if(/\^\s*n\b/i.test(eq)) return "other";
+  // exponential growth: catches both bare "^n" and parenthesized exponents
+  // that contain n anywhere inside, like "3^(n-1)" or "2^((n+3)/2)".
+  const expRe = /\^(\([^()]*(?:\([^()]*\)[^()]*)*\)|-?\w+)/g;
+  let expMatch, hasVariableExponent = false;
+  while((expMatch = expRe.exec(eq)) !== null){
+    if(/n/i.test(expMatch[1])){ hasVariableExponent = true; break; }
+  }
+  if(hasVariableExponent) return "other";
   const hasHigherPower = /n\s*(\^|\*\*)\s*[3-9]/i.test(eq);
   if(hasHigherPower) return "other";
   const hasSquare = /n\s*(\^|\*\*)?\s*2|n\s*²|n\s*\*\s*n/i.test(eq);
