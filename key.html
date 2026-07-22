@@ -108,6 +108,13 @@
     font-family:var(--display); font-size:15px; font-weight:600;
     border-top:1px solid var(--rule); background:#fff;
   }
+  .eq-bar sup{ font-size:0.7em; }
+  .eq-bar .frac{
+    display:inline-flex; flex-direction:column; align-items:center;
+    vertical-align:middle; margin:0 3px; line-height:1.2;
+  }
+  .eq-bar .fnum{ padding:0 4px 2px; border-bottom:1.5px solid currentColor; }
+  .eq-bar .fden{ padding:2px 4px 0; }
   .eq-bar.linear{ background:var(--linear); }
   .eq-bar.quad{ background:var(--quad); }
   .eq-bar.missing{ color:#bbb; font-weight:400; font-style:italic; font-family:var(--body); font-size:13px; }
@@ -160,8 +167,29 @@ function buildRanges(){
 }
 
 // Classify an equation string as linear, quad, or other, purely from its text.
+// Turns "2n^2 + n" into "2n<sup>2</sup> + n" for real superscript display.
+// You keep typing the easy caret version; this just handles the rendering.
+// Turns "n^2" into a real superscript, and "(n+1)(n+2)/2" into a proper
+// stacked fraction with a horizontal bar (only handles one division per
+// equation, which covers every pattern we've written so far).
+function superscript(s){
+  return s.replace(/\^(-?\d+)/g, "<sup>$1</sup>");
+}
+
+function formatEquation(eq){
+  const parts = eq.split("/");
+  if(parts.length === 2){
+    const num = superscript(parts[0].trim());
+    const den = superscript(parts[1].trim());
+    return `<span class="frac"><span class="fnum">${num}</span><span class="fden">${den}</span></span>`;
+  }
+  return superscript(eq);
+}
+
 function classify(eq){
   if(!eq || !eq.trim()) return "missing";
+  const hasHigherPower = /n\s*(\^|\*\*)\s*[3-9]/i.test(eq);
+  if(hasHigherPower) return "other";
   const hasSquare = /n\s*(\^|\*\*)?\s*2|n\s*²|n\s*\*\s*n/i.test(eq);
   if(hasSquare) return "quad";
   const hasN = /n/i.test(eq);
@@ -191,7 +219,7 @@ function cardHTML(p){
   const label = p.count ? `Pattern ${p.n} &middot; ${p.count}` : `Pattern ${p.n} &middot; <em>count TBD</em>`;
 
   const cls = classify(p.eq);
-  const eqText = p.eq && p.eq.trim() ? p.eq : "equation not yet added";
+  const eqText = p.eq && p.eq.trim() ? formatEquation(p.eq) : "equation not yet added";
 
   return `<div class="card">
       <div class="thumb">${media}</div>
