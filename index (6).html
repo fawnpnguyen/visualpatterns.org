@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Patterns</title>
+<meta name="description" content="Patterns to grow algebraic thinking and reasoning.">
+
+<!-- ================================================================
+     FONTS — clean neutral sans, in the spirit of the current site.
+     Montserrat for the wordmark/headings, Inter for everything else.
+     Swap these two names if you learn the exact fonts Squarespace uses.
+     ================================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:      #FFFFFF;   /* page background         */
+    --card:    #FFFFFF;   /* pattern card background  */
+    --ink:     #2A2A2A;   /* headings, pattern labels */
+    --muted:   #767676;   /* attributions, notes      */
+    --rule:    #E6E6E3;   /* hairline dividers        */
+    --accent:  #3F6076;   /* quiet slate: links + active tab only */
+    --shadow:  0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.04);
+
+    --display: "Montserrat", system-ui, sans-serif;
+    --body:    "Inter", system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:var(--body); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Header ---------- */
+  header{ text-align:center; padding:46px 20px 24px; }
+  h1{
+    font-family:var(--display); font-weight:700;
+    letter-spacing:.16em; text-transform:uppercase;
+    font-size:clamp(26px, 4.5vw, 40px); color:var(--ink);
+  }
+  #site-logo{
+    display:inline-block; max-height:64px; max-width:80vw; height:auto;
+  }
+  .tagline{
+    font-style:italic; color:var(--muted);
+    margin-top:10px; font-size:clamp(14px, 2vw, 17px);
+  }
+
+  .random-btn{
+    margin-top:18px; font-family:var(--body); font-size:14px;
+    color:var(--ink); background:var(--card); cursor:pointer;
+    border:1px solid var(--rule); border-radius:20px;
+    padding:8px 18px; box-shadow:var(--shadow);
+    transition:transform .1s ease, box-shadow .15s ease;
+  }
+  .random-btn:hover{ box-shadow:0 2px 6px rgba(0,0,0,.08), 0 10px 24px rgba(0,0,0,.08); }
+  .random-btn:active{ transform:scale(.97); }
+  .random-btn:disabled{ opacity:.5; cursor:default; }
+  .pattern.flash .thumb{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* ---------- Range navigation ---------- */
+  nav{ border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:16px 12px; }
+  .nav-inner{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:6px 22px; }
+  .nav-inner button, .nav-inner a{
+    font-family:var(--body); font-size:15px; color:var(--muted);
+    background:none; border:none; cursor:pointer;
+    padding:4px 2px 8px; border-bottom:2px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+    text-decoration:none; display:inline-block;
+  }
+  .nav-inner button:hover, .nav-inner a:hover{ color:var(--ink); }
+  .nav-inner button.active, .nav-inner a.active{ color:var(--ink); font-weight:600; border-bottom-color:var(--accent); }
+  .nav-inner button:focus-visible, .nav-inner a:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+  .nav-inner a{ margin-left:6px; padding-left:14px; border-left:1px solid var(--rule); }
+
+  /* ---------- Section heading ---------- */
+  .section-head{ max-width:1120px; margin:0 auto; padding:34px 24px 6px; }
+  .section-head h2{
+    font-family:var(--display); font-weight:600;
+    letter-spacing:.01em; color:var(--ink);
+    font-size:clamp(20px, 3vw, 26px);
+  }
+  .section-head .note{ font-style:italic; color:var(--muted); margin-top:8px; font-size:15px; }
+
+  /* ---------- Pattern grid ---------- */
+  .grid{
+    max-width:1120px; margin:0 auto; padding:22px 24px 60px;
+    display:grid; gap:26px 34px;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .pattern{ animation:rise .4s ease both; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:none;} }
+
+  .thumb{
+    background:var(--card); border:1px solid var(--rule);
+    border-radius:8px; box-shadow:var(--shadow);
+    aspect-ratio:16 / 9; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .thumb img{ width:100%; height:100%; object-fit:contain; padding:12px; }
+
+  .placeholder{
+    width:100%; height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:11px; color:var(--muted);
+  }
+  .placeholder .motif{ display:flex; gap:6px; opacity:.35; }
+  .placeholder .motif span{ display:block; background:var(--ink); border-radius:2px; }
+  .placeholder .motif span:nth-child(1){ width:13px; height:13px; }
+  .placeholder .motif span:nth-child(2){ width:20px; height:20px; }
+  .placeholder .motif span:nth-child(3){ width:27px; height:27px; }
+  .placeholder small{ font-size:12px; letter-spacing:.02em; }
+
+  .caption{ text-align:center; padding:13px 6px 0; }
+  .caption .label{
+    font-weight:600; color:var(--ink); font-size:15px;
+    text-transform:uppercase; letter-spacing:.02em;
+  }
+  .caption .by{ display:block; margin-top:4px; font-style:italic; color:var(--muted); font-size:14px; }
+  .caption .src-link{ text-decoration:none; font-style:normal; margin-left:2px; opacity:.6; }
+  .caption .src-link:hover{ opacity:1; }
+
+  .thumb.clickable{ cursor: zoom-in; }
+  .thumb.clickable:hover{ box-shadow: 0 2px 6px rgba(0,0,0,.08), 0 10px 24px rgba(0,0,0,.08); }
+
+  /* ---------- Lightbox ---------- */
+  #lightbox{
+    position:fixed; inset:0; background:rgba(20,20,20,.86);
+    display:none; align-items:center; justify-content:center;
+    z-index:1000; padding:32px; cursor:zoom-out;
+  }
+  #lightbox.open{ display:flex; }
+  #lightbox .lb-inner{
+    max-width:min(1100px, 92vw); max-height:88vh;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+    cursor:default;
+  }
+  #lightbox img{
+    max-width:100%; max-height:72vh; object-fit:contain;
+    background:#fff; border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  #lightbox .lb-caption{ text-align:center; color:#fff; }
+  #lightbox .lb-caption .label{
+    font-weight:600; font-size:17px; text-transform:uppercase; letter-spacing:.02em;
+  }
+  #lightbox .lb-caption .by{ display:block; margin-top:6px; font-style:italic; color:#cfcfcf; font-size:14px; }
+  #lightbox .lb-close{
+    position:absolute; top:20px; right:26px;
+    color:#fff; font-size:32px; line-height:1; background:none; border:none;
+    cursor:pointer; opacity:.8;
+  }
+  #lightbox .lb-close:hover{ opacity:1; }
+
+  footer{
+    border-top:1px solid var(--rule); text-align:center;
+    padding:26px 20px 40px; color:var(--muted); font-size:13px;
+  }
+  footer p + p{ margin-top:6px; }
+  footer a{ color:var(--accent); text-decoration:none; }
+  footer a:hover{ text-decoration:underline; }
+
+  @media (prefers-reduced-motion: reduce){ .pattern{ animation:none; } }
+</style>
+</head>
+
+<body>
+  <header>
+    <img id="site-logo" src="assets/logo.png" alt="Visual Patterns logo"
+         onerror="this.outerHTML='<h1>Visual Patterns</h1>'">
+    <p class="tagline">Patterns to grow algebraic thinking and reasoning.</p>
+    <button id="random-btn" class="random-btn">&#127920; Random Pattern</button>
+  </header>
+
+  <nav><div class="nav-inner" id="ranges"></div></nav>
+
+  <div class="section-head">
+    <h2 id="range-title">Patterns 1&ndash;50</h2>
+    <p class="note">The number of objects listed under each pattern is for step 43 in that sequence.</p>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div id="lightbox" onclick="if(event.target===this) closeLightbox()">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <div class="lb-inner">
+      <img id="lb-img" src="" alt="">
+      <div class="lb-caption">
+        <span class="label" id="lb-label"></span>
+        <span class="by" id="lb-by"></span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Copyright &copy; 2026 Visual Patterns by <a href="https://fawnnguyen.substack.com" target="_blank" rel="noopener">Fawn Nguyen</a>.</p>
+    <p>This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+  </footer>
+
+
+<script>
+/* ====================================================================
+   THE ONLY PART YOU EDIT: your list of patterns.
+
+     { n: 4, count: "173 squares", by: "John Golden", img: "images/pattern-4.png" },
+
+     n     = pattern number
+     count = objects at step 43  ("130 hexagons", "132 segments", "£17.20")
+     by    = who submitted it  (use "" if unknown)
+     img   = image file, e.g. "images/pattern-4.png"
+             Leave img off and a placeholder shows, so you can list a
+             pattern before its picture is redrawn.
+
+   ADD: copy a line, change the numbers, drop the image in images/.
+   REMOVE: delete its line.  (The page sorts by number for you.)
+   ==================================================================== */
+
+const patterns = [
+  { n: 1,  count: "1,849 squares", by: "Fawn", img: "images/pattern-1.png" },
+  { n: 2,  count: "85 squares", by: "Fawn", img: "images/pattern-2.png" },
+  { n: 3,  count: "990 squares", by: "Fawn", img: "images/pattern-3.png" },
+  { n: 4,  count: "173 squares", by: "Fawn", img: "images/pattern-4.png" },
+  { n: 5,  count: "3,787 squares", by: "Fawn", img: "images/pattern-5.png" },
+  { n: 6,  count: "172 squares", by: "Fawn", img: "images/pattern-6.png" },
+  { n: 7,  count: "87 squares", by: "Fawn", img: "images/pattern-7.png" },
+  { n: 8,  count: "947 squares", by: "Fawn", img: "images/pattern-8.png" },
+  { n: 9,  count: "132 squares", by: "Fawn", img: "images/pattern-9.png" },
+  { n: 10,  count: "85 squares", by: "Fawn", img: "images/pattern-10.png" },
+  { n: 11,  count: "87 squares", by: "Fawn", img: "images/pattern-11.png" },
+  { n: 12,  count: "1,936 squares", by: "Fawn", img: "images/pattern-12.png" },
+  { n: 13,  count: "946 squares", by: "Fawn", img: "images/pattern-13.png" },
+  { n: 14,  count: "259 squares", by: "Katie", img: "images/pattern-14.png" },
+  { n: 15,  count: "130 squares", by: "Katie", img: "images/pattern-15.png" },
+  { n: 16,  count: "3,784 triangles", by: "Fawn", img: "images/pattern-16.png" },
+  { n: 17,  count: "130 squares", by: "Katie", img: "images/pattern-17.png" },
+  { n: 18,  count: "129 squares", by: "Justin Lanier", img: "images/pattern-18.png" },
+  { n: 19,  count: "1,937 squares", by: "Chris Hunter", img: "images/pattern-19.png" },
+  { n: 20,  count: "3,741 squares", by: "Fawn", img: "images/pattern-20.png" },
+  { n: 21,  count: "3,700 squares", by: "Fawn", img: "images/pattern-21.png" },
+  { n: 22,  count: "946 squares", by: "David Wees", img: "images/pattern-22.png" },
+  { n: 23,  count: "79,594 squares", by: "David Wees", img: "images/pattern-23.png" },
+  { n: 24,  count: "89 squares", by: "David Wees", img: "images/pattern-24.png" },
+  { n: 25,  count: "89 squares", by: "David Wees", img: "images/pattern-25.png" },
+  { n: 26,  count: "1,933 squares", by: "Fawn", img: "images/pattern-26.png" },
+  { n: 27,  count: "1,892 squares", by: "David Wees", img: "images/pattern-27.png" },
+  { n: 28,  count: "5,419 cubes", by: "Fawn", img: "images/pattern-28.png" },
+  { n: 29,  count: "181 squares", by: "Fawn", img: "images/pattern-29.png" },
+  { n: 30,  count: "3,739 squares", by: "John Golden", img: "images/pattern-30.png" },
+  { n: 31,  count: "257 squares", by: "John Golden", img: "images/pattern-31.png" },
+  { n: 32,  count: "1,892 squares", by: "John Golden", img: "images/pattern-32.png" },
+  { n: 33,  count: "1,891 squares", by: "John Golden", img: "images/pattern-33.png" },
+  { n: 34,  count: "1,892 squares", by: "John Golden", img: "images/pattern-34.png" },
+  { n: 35,  count: "173 squares", by: "John Golden", img: "images/pattern-35.png" },
+  { n: 36,  count: "177 squares", by: "John Golden", img: "images/pattern-36.png" },
+  { n: 37,  count: "216 segments", by: "John Golden", img: "images/pattern-37.png" },
+  { n: 38,  count: "2,838 segments", by: "John Golden", img: "images/pattern-38.png" },
+  { n: 39,  count: "40,678 cubes", by: "John Golden", img: "images/pattern-39.png" },
+  { n: 40,  count: "22,188 triangles", by: "John Golden", img: "images/pattern-40.png" },
+  { n: 41,  count: "11,094 squares, 22,188 triangles", by: "Simon Gregg", img: "images/pattern-41.png" },
+  { n: 42,  count: "174 outer segments", by: "Henri Picciotto", img: "images/pattern-42.png" },
+  { n: 43,  count: "136 squares", by: "Fawn", img: "images/pattern-43.png" },
+  { n: 44,  count: "174 green hexagons", by: "Fawn", img: "images/pattern-44.png" },
+  { n: 45,  count: "3,827 squares", by: "Kristen Silverman", img: "images/pattern-45.png" },
+  { n: 46,  count: "846 surfaces, 211 cubes", by: "Fawn", img: "images/pattern-46.png" },
+  { n: 47,  count: "1,851 squares", by: "Fawn", img: "images/pattern-47.png" },
+  { n: 48,  count: "510 surfaces, 127 cubes", by: "Fawn", img: "images/pattern-48.png" },
+  { n: 49,  count: "8.7961014e+12 surfaces, 4.3980465e+12 cubes", by: "Fawn", img: "images/pattern-49.png" },
+  { n: 50,  count: "3,486,784,401,338,042,181,268,737 shaded triangles, 1,743,392,200,669,021,090,634,368 unshaded triangles", by: "Fawn", img: "images/pattern-50.png" },
+  { n: 51,  count: "130 hexagons", by: "Simon Gregg", img: "images/pattern-51.png" },
+  { n: 52,  count: "3,828 cubes", by: "Fawn", img: "images/pattern-52.png" },
+  { n: 53,  count: "344 squares", by: "Fawn", img: "images/pattern-53.png" },
+  { n: 54,  count: "1,849 squares", by: "Fawn", img: "images/pattern-54.png" },
+  { n: 55,  count: "85 squares", by: "Fawn", img: "images/pattern-55.png" },
+  { n: 56,  count: "258 squares", by: "Fawn", img: "images/pattern-56.png" },
+  { n: 57,  count: "2,025 squares", by: "Fawn", img: "images/pattern-57.png" },
+  { n: 58,  count: "217 squares", by: "Fawn", img: "images/pattern-58.png" },
+  { n: 59,  count: "176 border tiles", by: "Fawn", img: "images/pattern-59.png" },
+  { n: 60,  count: "1,892 squares", by: "Fawn", img: "images/pattern-60.png" },
+  { n: 61,  count: "3,827 squares", by: "Fawn", img: "images/pattern-61.png" },
+  { n: 62,  count: "1.0941899e+20 squares", by: "Nik Doran", img: "images/pattern-62.png" },
+  { n: 63,  count: "348 squares", by: "Fawn", img: "images/pattern-63.png" },
+  { n: 64,  count: "218 squares", by: "Fawn", img: "images/pattern-64.png" },
+  { n: 65,  count: "946 squares", by: "Nik Doran", img: "images/pattern-65.png" },
+  { n: 66,  count: "174 squares", by: "Nik Doran", img: "images/pattern-66.png" },
+  { n: 67,  count: "2,023 squares", by: "Fawn", img: "images/pattern-67.png" },
+  { n: 68,  count: "1,893 squares", by: "Agustin Otero Rodriguez", img: "images/pattern-68.png" },
+  { n: 69,  count: "2,109 squares", by: "Fawn", img: "images/pattern-69.png" },
+  { n: 70,  count: "340 squares", by: "Fawn", img: "images/pattern-70.png" },
+  { n: 71,  count: "4.354066e+15 cubes", by: "Mimi Yang", img: "images/pattern-71.png" },
+  { n: 72,  count: "14,965 squares", by: "Robert Kaplinsky", img: "images/pattern-72.png" },
+  { n: 73,  count: "261 squares", by: "Fawn", img: "images/pattern-73.png" },
+  { n: 74,  count: "174 squares", by: "Fawn", img: "images/pattern-74.png" },
+  { n: 75,  count: "172 dots", by: "Fawn", img: "images/pattern-75.png" },
+  { n: 76,  count: "1,079 dots", by: "Fawn", img: "images/pattern-76.png" },
+  { n: 77,  count: "2,020 segments", by: "Fawn", img: "images/pattern-77.png" },
+  { n: 78,  count: "307 segments", by: "Fawn", img: "images/pattern-78.png" },
+  { n: 79,  count: "894,916 cubes", by: "Simon Gregg", img: "images/pattern-79.png" },
+  { n: 80,  count: "80 red circles", by: "Michael Pershan", img: "images/pattern-80.png" },
+  { n: 81,  count: "2,773 orange, 3,866 greens", by: "Simon Gregg", img: "images/pattern-81.png" },
+  { n: 82,  count: "171 squares", by: "Fawn", img: "images/pattern-82.png" },
+  { n: 83,  count: "176 squares", by: "Fawn", img: "images/pattern-83.png" },
+  { n: 84,  count: "2,070 squares", by: "Fawn", img: "images/pattern-84.png" },
+  { n: 85,  count: "3,784 squares", by: "Michael Fenton", img: "images/pattern-85.png" },
+  { n: 86,  count: "2,197 squares", by: "Michael Fenton", img: "images/pattern-86.png" },
+  { n: 87,  count: "39,775 squares", by: "Fawn", img: "images/pattern-87.png" },
+  { n: 88,  count: "1,892 squares", by: "Fawn", img: "images/pattern-88.png" },
+  { n: 89,  count: "307,105 squares", by: "Fawn", img: "images/pattern-89.png" },
+  { n: 90,  count: "218 squares", by: "Fawn", img: "images/pattern-90.png" },
+  { n: 91,  count: "2,023 squares", by: "Fawn", img: "images/pattern-91.png" },
+  { n: 92,  count: "1,806 squares", by: "Fawn", img: "images/pattern-92.png" },
+  { n: 93,  count: "3,786 squares", by: "Fawn", img: "images/pattern-93.png" },
+  { n: 94,  count: "948 squares", by: "Fawn", img: "images/pattern-94.png" },
+  { n: 95,  count: "216 squares", by: "Fawn", img: "images/pattern-95.png" },
+  { n: 96,  count: "176 squares", by: "Fawn", img: "images/pattern-96.png" },
+  { n: 97,  count: "8,796,093,022,254 squares", by: "Fawn", img: "images/pattern-97.png" },
+  { n: 98,  count: "2/3 shaded in", by: "Fawn", img: "images/pattern-98.png" },
+  { n: 99,  count: "3,954 sq pieces (inc bottom)", by: "Simon Gregg's students William & Ella-May (Year 5)", img: "images/pattern-99.png" },
+  { n: 100,  count: "1.0941899e+20 yellow triangles, 5.4709495e+19 green triangles", by: "Fawn", img: "images/pattern-100.png" },
+  { n: 101,  count: "1,853 squares", by: "Kate Nowak", img: "images/pattern-101.png" },
+  { n: 102,  count: "1,848 squares", by: "Kate Nowak", img: "images/pattern-102.png" },
+  { n: 103,  count: "2,116 squares", by: "Kate Nowak", img: "images/pattern-103.png" },
+  { n: 104,  count: "4,056 squares", by: "Kate Nowak", img: "images/pattern-104.png" },
+  { n: 105,  count: "5,547 squares", by: "Kate Nowak", img: "images/pattern-105.png" },
+  { n: 106,  count: "1,934 squares", by: "Kate Nowak", img: "images/pattern-106.png" },
+  { n: 107,  count: "176 squares", by: "Dean Adalian", img: "images/pattern-107.png" },
+  { n: 108,  count: "1,937 squares", by: "Jeffrey Hart", img: "images/pattern-108.png" },
+  { n: 109,  count: "129 squares", by: "David Wees", img: "images/pattern-109.png" },
+  { n: 110,  count: "88 squares", by: "David Wees", img: "images/pattern-110.png" },
+  { n: 111,  count: "90 squares", by: "Fawn", img: "images/pattern-111.png" },
+  { n: 112,  count: "170 squares", by: "Andrew Busch", img: "images/pattern-112.png" },
+  { n: 113,  count: "946 squares", by: "Fawn", img: "images/pattern-113.png" },
+  { n: 114,  count: "133 squares", by: "Fawn", img: "images/pattern-114.png" },
+  { n: 115,  count: "301 squares", by: "Fawn", img: "images/pattern-115.png" },
+  { n: 116,  count: "343 circles", by: "Elaine Watson", img: "images/pattern-116.png" },
+  { n: 117,  count: "1,935 squares", by: "Sarah Strong", img: "images/pattern-117.png" },
+  { n: 118,  count: "103,823 small cubes", by: "Mike Lawler", img: "images/pattern-118.png" },
+  { n: 119,  count: "1,935 discs", by: "Matt Owen", img: "images/pattern-119.png" },
+  { n: 120,  count: "7,748 pink nubs, 364 whites", by: "Megan Schmidt", img: "images/pattern-120.png" },
+  { n: 121,  count: "7,736 nubs", by: "Megan Schmidt", img: "images/pattern-121.png" },
+  { n: 122,  count: "131 people seated", by: "Matt Vaudrey", img: "images/pattern-122.png" },
+  { n: 123,  count: "3,784 dots", by: "Fawn", img: "images/pattern-123.png" },
+  { n: 124,  count: "218 dots", by: "Fawn", img: "images/pattern-124.png" },
+  { n: 125,  count: "129 circles", by: "Fawn", img: "images/pattern-125.png" },
+  { n: 126,  count: "1,976 connecting rods", by: "Fawn", img: "images/pattern-126.png" },
+  { n: 127,  count: "1,979 squares", by: "Fawn", img: "images/pattern-127.png" },
+  { n: 128,  count: "169 squares", by: "Kasey Clarke", img: "images/pattern-128.png" },
+  { n: 129,  count: "173 squares", by: "Christopher Moreno", img: "images/pattern-129.png" },
+  { n: 130,  count: "130 dots", by: "Fawn", img: "images/pattern-130.png" },
+  { n: 131,  count: "1,849 cubes", by: "Dr. Maria Droujkova", img: "images/pattern-131.png" },
+  { n: 132,  count: "945 diagonals", by: "Math Curmudgeon", img: "images/pattern-132.png" },
+  { n: 133,  count: "1.9342813e+25 triangles", by: "Math Curmudgeon", img: "images/pattern-133.png" },
+  { n: 134,  count: "3,784 squares", by: "Don Steward", img: "images/pattern-134.png" },
+  { n: 135,  count: "7,310 squares", by: "Don Steward", img: "images/pattern-135.png" },
+  { n: 136,  count: "5,590 squares", by: "Don Steward", img: "images/pattern-136.png" },
+  { n: 137,  count: "3,613 squares", by: "Don Steward", img: "images/pattern-137.png" },
+  { n: 138,  count: "344 squares", by: "Don Steward", img: "images/pattern-138.png" },
+  { n: 139,  count: "7,568 squares", by: "Don Steward", img: "images/pattern-139.png" },
+  { n: 140,  count: "260 squares", by: "Don Steward", img: "images/pattern-140.png" },
+  { n: 141,  count: "3,872 squares", by: "Don Steward", img: "images/pattern-141.png" },
+  { n: 142,  count: "3,700 cubes", by: "Don Steward", img: "images/pattern-142.png" },
+  { n: 143,  count: "128 squares", by: "Kasey Clark", img: "images/pattern-143.png" },
+  { n: 144,  count: "3,785 hypotenuse [black]", by: "Simon Gregg", img: "images/pattern-144.png" },
+  { n: 145,  count: "89 squares", by: "Fawn", img: "images/pattern-145.png" },
+  { n: 146,  count: "946 candy corns", by: "Andrew Stadel", img: "images/pattern-146.png" },
+  { n: 147,  count: "1,979 squares", by: "Fawn", img: "images/pattern-147.png" },
+  { n: 148,  count: "3,785 circles", by: "Chris Hunter", img: "images/pattern-148.png" },
+  { n: 149,  count: "2,027 squares", by: "Matt Owen", img: "images/pattern-149.png" },
+  { n: 150,  count: "3,741 squares", by: "Matt Owen", img: "images/pattern-150.png" },
+  { n: 151,  count: "1,892 diamond vertices", by: "John Golden", img: "images/pattern-151.png", link: "https://mathhombre.tumblr.com/post/103150134654/tent-a-visual-pattern-a-la-fawnpnguyens" },
+  { n: 152,  count: "132 circles", by: "John Golden", img: "images/pattern-152.png", link: "https://mathhombre.tumblr.com/post/104634270579/holiday-tree-puzzle-my-student-amanda-reminded" },
+  { n: 153,  count: "4,945 hexagons", by: "Jacob Siehler", img: "images/pattern-153.png" },
+  { n: 154,  count: "159,057 cubes", by: "Sergi del Moral", img: "images/pattern-154.png" },
+  { n: 155,  count: "253 cubes", by: "Sergi del Moral", img: "images/pattern-155.png" },
+  { n: 156,  count: "130 cubes", by: "Sergi del Moral", img: "images/pattern-156.png" },
+  { n: 157,  count: "3,698 green squares", by: "Sergi del Moral", img: "images/pattern-157.png" },
+  { n: 158,  count: "81,399 cubes", by: "Ben Graber", img: "images/pattern-158.png" },
+  { n: 159,  count: "26,283 visible dots", by: "Michael Jacobs", img: "images/pattern-159.png" },
+  { n: 160,  count: "3.2825697e+20 cubes", by: "Bryan Anderson", img: "images/pattern-160.png" },
+  { n: 161,  count: "1,836,311,903 cubes", by: "Bryan Anderson", img: "images/pattern-161.png" },
+  { n: 162,  count: "1.31943e+13 bacteria", by: "Paula Rodrigue", img: "images/pattern-162.png" },
+  { n: 163,  count: "1.364242e+30 bunnies", by: "Katie Gates", img: "images/pattern-163.png" },
+  { n: 164,  count: "64.5 circles", by: "Katie Gates", img: "images/pattern-164.png" },
+  { n: 165,  count: "89 squares", by: "Katie Gates", img: "images/pattern-165.png" },
+  { n: 166,  count: "1.09412e+20 cubes", by: "Katie Gates", img: "images/pattern-166.png" },
+  { n: 167,  count: "26,388,279,066,624 circles", by: "Katie Gates", img: "images/pattern-167.png" },
+  { n: 168,  count: "215 flowers", by: "Katie Gates", img: "images/pattern-168.png" },
+  { n: 169,  count: "1,936 hexagons", by: "Katie Gates", img: "images/pattern-169.png" },
+  { n: 170,  count: "131 leaves", by: "Katie Gates", img: "images/pattern-170.png" },
+  { n: 171,  count: "1.13686843e+30 squares", by: "Katie Gates", img: "images/pattern-171.png" },
+  { n: 172,  count: "1.136868e-12 squares", by: "Katie Gates", img: "images/pattern-172.png" },
+  { n: 173,  count: "1.033976e-25 squares", by: "Katie Gates", img: "images/pattern-173.png" },
+  { n: 174,  count: "3.09485e+26 squares", by: "Fawn", img: "images/pattern-174.png" },
+  { n: 175,  count: "129 squares", by: "Katie Gates", img: "images/pattern-175.png" },
+  { n: 176,  count: "3.28257e+20 suns", by: "Katie Gates", img: "images/pattern-176.png" },
+  { n: 177,  count: "1,850 triangles", by: "Katie Gates", img: "images/pattern-177.png" },
+  { n: 178,  count: "83 cubes", by: "Levi Patrick", img: "images/pattern-178.png" },
+  { n: 179,  count: "1,976 sq units", by: "John Golden", img: "images/pattern-179.png" },
+  { n: 180,  count: "1,128 HEX pieces", by: "Megan Schmidt", img: "images/pattern-180.png" },
+  { n: 181,  count: "1,937 squares", by: "Fawn", img: "images/pattern-181.png" },
+  { n: 182,  count: "8,796,093,022,208 regions", by: "Melvin Peralta", img: "images/pattern-182.png" },
+  { n: 183,  count: "129 dimes", by: "Melvin Peralta", img: "images/pattern-183.png" },
+  { n: 184,  count: "904 regions created", by: "Melvin Peralta", img: "images/pattern-184.png" },
+  { n: 185,  count: "1,937 squares", by: "Eric Appleton", img: "images/pattern-185.png" },
+  { n: 186,  count: "1,937 squares", by: "Eric Appleton", img: "images/pattern-186.png" },
+  { n: 187,  count: "1,937 squares", by: "Eric Appleton", img: "images/pattern-187.png" },
+  { n: 188,  count: "1,937 squares", by: "Eric Appleton", img: "images/pattern-188.png" },
+  { n: 189,  count: "1,980 squares", by: "David Sladkey", img: "images/pattern-189.png" },
+  { n: 190,  count: "1,935 squares", by: "Eric Appleton", img: "images/pattern-190.png" },
+  { n: 191,  count: "2,084,028,219e+9 squares", by: "Melvin Peralta", img: "images/pattern-191.png" },
+  { n: 192,  count: "2.88737882e+33 circles", by: "Melvin Peralta", img: "images/pattern-192.png" },
+  { n: 193,  count: "1,849 right triangles", by: "Melvin Peralta", img: "images/pattern-193.png" },
+  { n: 194,  count: "1,981 squares", by: "Fawn", img: "images/pattern-194.png" },
+  { n: 195,  count: "89 squares", by: "Stephanie Bowyer", img: "images/pattern-195.png" },
+  { n: 196,  count: "1,936 squares", by: "Stephanie Bowyer", img: "images/pattern-196.png" },
+  { n: 197,  count: "3,784 squares", by: "Stephanie Bowyer", img: "images/pattern-197.png" },
+  { n: 198,  count: "17,592,186,044,415 squares", by: "Hyuny Song", img: "images/pattern-198.png" },
+  { n: 199,  count: "980,100 distinct squares & rectangles", by: "Melvin Peralta", img: "images/pattern-199.png" },
+  { n: 200,  count: "946 white-top cubes, 990 white-bottom cubes", by: "Melvin Peralta", img: "images/pattern-200.png" },
+  { n: 201,  count: "3,655 squares", by: "Hogan Greenfader", img: "images/pattern-201.png" },
+  { n: 202,  count: "133 squares", by: "Alexander Egol", img: "images/pattern-202.png" },
+  { n: 203,  count: "9,245 squares", by: "Tess", img: "images/pattern-203.png" },
+  { n: 204,  count: "3,872 stars, 93 stripes", by: "Lachlan Champion", img: "images/pattern-204.png" },
+  { n: 205,  count: "1,892 squares", by: "Meribel Collin", img: "images/pattern-205.png" },
+  { n: 206,  count: "127 triangles", by: "Oamiya Haque", img: "images/pattern-206.png" },
+  { n: 207,  count: "88 squares", by: "Chris Beyerle", img: "images/pattern-207.png" },
+  { n: 208,  count: "7,396 squares", by: "Christine Jenkins", img: "images/pattern-208.png" },
+  { n: 209,  count: "1,850 squares", by: "Christine Jenkins", img: "images/pattern-209.png" },
+  { n: 210,  count: "3,698 circles", by: "Christine Jenkins", img: "images/pattern-210.png" },
+  { n: 211,  count: "176 Froot Loops", by: "Isabella", img: "images/pattern-211.png" },
+  { n: 212,  count: "1,979 squares", by: "Charlotte", img: "images/pattern-212.png" },
+  { n: 213,  count: "946 squares", by: "Fawn", img: "images/pattern-213.png" },
+  { n: 214,  count: "1,852 squares", by: "Stephanie", img: "images/pattern-214.png" },
+  { n: 215,  count: "2,070 squares", by: "Andy", img: "images/pattern-215.png" },
+  { n: 216,  count: "43 C, 88 H, 130 bonds", by: "Eric Appleton", img: "images/pattern-216.png" },
+  { n: 217,  count: "86 squares", by: "Zoe", img: "images/pattern-217.png" },
+  { n: 218,  count: "510 segments", by: "student of Ilona Vashchyshyn", img: "images/pattern-218.png" },
+  { n: 219,  count: "252 triangles", by: "student of Ilona Vashchyshyn", img: "images/pattern-219.png" },
+  { n: 220,  count: "169 total triangles", by: "student of Ilona Vashchyshyn", img: "images/pattern-220.png" },
+  { n: 221,  count: "1,934 square units", by: "John Golden", img: "images/pattern-221.png" },
+  { n: 222,  count: "1,978 square units", by: "John Golden", img: "images/pattern-222.png" },
+  { n: 223,  count: "132 circles", by: "Ethan Rioux", img: "images/pattern-223.png" },
+  { n: 224,  count: "45 toothpicks", by: "Rachel Kwon", img: "images/pattern-224.png" },
+  { n: 225,  count: "1,936 squares", by: "Mike Jacobs", img: "images/pattern-225.png" },
+  { n: 226,  count: "2,025 squares", by: "Dan Allen", img: "images/pattern-226.png" },
+  { n: 227,  count: "990 pillows", by: "Ed Campos", img: "images/pattern-227.png" },
+  { n: 228,  count: "172 squares", by: "Eui Sung Kang", img: "images/pattern-228.png" },
+  { n: 229,  count: "1,807 squares", by: "Lukas Bruihler", img: "images/pattern-229.png" },
+  { n: 230,  count: "7,740 squares", by: "Mari Carmen Maldonado", img: "images/pattern-230.png" },
+  { n: 231,  count: "1,850 circles", by: "Minki Yun", img: "images/pattern-231.png" },
+  { n: 232,  count: "6,380 rods", by: "John Golden and Simon Gregg", img: "images/pattern-232.png" },
+  { n: 233,  count: "704 sq units surface area", by: "Mark Trushkowsky", img: "images/pattern-233.png" },
+  { n: 234,  count: "88 squares", by: "Chris Burke", img: "images/pattern-234.png" },
+  { n: 235,  count: "1,118 if green = 1", by: "Chris Burke", img: "images/pattern-235.png" },
+  { n: 236,  count: "3,784 segments, 1,936 stars", by: "Eric Appleton", img: "images/pattern-236.png" },
+  { n: 237,  count: "1,932 stars", by: "Eric Appleton", img: "images/pattern-237.png" },
+  { n: 238,  count: "1,764 stars", by: "Eric Appleton", img: "images/pattern-238.png" },
+  { n: 239,  count: "130 segments, 131 stars", by: "Eric Appleton", img: "images/pattern-239.png" },
+  { n: 240,  count: "3,874 segments, 2,021 stars", by: "Eric Appleton", img: "images/pattern-240.png" },
+  { n: 241,  count: "134 squares", by: "Elizabeth Kelley", img: "images/pattern-241.png" },
+  { n: 242,  count: "89 watermelons", by: "sakirgokcebag.com and Marc Garneau", img: "images/pattern-242.png" },
+  { n: 243,  count: "89 squares", by: "Molly Rawding", img: "images/pattern-243.png" },
+  { n: 244,  count: "6,340 unit rods", by: "John Golden and Simon Gregg", img: "images/pattern-244.png" },
+  { n: 245,  count: "49,460 rod units", by: "John Golden and Simon Gregg", img: "images/pattern-245.png" },
+  { n: 246,  count: "8.796093e+12 berries, 1.759219e+23 branches", by: "Eric Appleton", img: "images/pattern-246.png" },
+  { n: 247,  count: "243.2447 units perimeter, 3,698 sq units area, 1.0 slope", by: "Eric Appleton", img: "images/pattern-247.png" },
+  { n: 248,  count: "172.0465 units perimeter, 1,850 sq units area, 0.0233 slope", by: "Eric Appleton", img: "images/pattern-248.png" },
+  { n: 249,  count: "4 units perimeter, 0.5 sq units area", by: "George Theall", img: "images/pattern-249.png" },
+  { n: 250,  count: "172.1859 units perimeter, 1,853 sq units area, 0.0465 slope", by: "Eric Appleton", img: "images/pattern-250.png" },
+  { n: 251,  count: "946 turtle pieces", by: "Maren Eberly", img: "images/pattern-251.png" },
+  { n: 252,  count: "263 squares", by: "Hamish (kindergartener from Simon Gregg's class)", img: "images/pattern-252.png" },
+  { n: 253,  count: "79,507 squares", by: "Eric Appleton", img: "images/pattern-253.png" },
+  { n: 254,  count: "1,939 circles", by: "Fawn", img: "images/pattern-254.png" },
+  { n: 255,  count: "174 squares", by: "Fawn", img: "images/pattern-255.png" },
+  { n: 256,  count: "130 squares", by: "Fawn", img: "images/pattern-256.png" },
+  { n: 257,  count: "2,019 squares", by: "Phebe Klein", img: "images/pattern-257.png" },
+  { n: 258,  count: "267 squares", by: "Koran Dortch", img: "images/pattern-258.png" },
+  { n: 259,  count: "174 squares", by: "Kenneth Britton", img: "images/pattern-259.png" },
+  { n: 260,  count: "215 squares", by: "Dontay Givens", img: "images/pattern-260.png" },
+  { n: 261,  count: "2,027 squares", by: "Fawn", img: "images/pattern-261.png" },
+  { n: 262,  count: "219 squares", by: "Ahleeah Friend", img: "images/pattern-262.png" },
+  { n: 263,  count: "87 squares", by: "Daveon Jones", img: "images/pattern-263.png" },
+  { n: 264,  count: "127 squares", by: "Theondra Davis", img: "images/pattern-264.png" },
+  { n: 265,  count: "$114,840", by: "Andrew Uyeno", img: "images/pattern-265.png" },
+  { n: 266,  count: "131 squares", by: "Michelle Pavlovsky", img: "images/pattern-266.png" },
+  { n: 267,  count: "92 squares", by: "Fawn", img: "images/pattern-267.png" },
+  { n: 268,  count: "45/2024 shaded", by: "Andrew Uyeno", img: "images/pattern-268.png" },
+  { n: 269,  count: "1,978 circles", by: "Andrew Uyeno", img: "images/pattern-269.png" },
+  { n: 270,  count: "~ 1/3 shaded", by: "Michael Pershan", img: "images/pattern-270.png" },
+  { n: 271,  count: "~ 1 shaded", by: "Michael Pershan", img: "images/pattern-271.png" },
+  { n: 272,  count: "2,926 squares", by: "Fawn", img: "images/pattern-272.png" },
+  { n: 273,  count: "171 squares", by: "Kara White", img: "images/pattern-273.png" },
+  { n: 274,  count: "45 squares", by: "Fawn", img: "images/pattern-274.png" },
+  { n: 275,  count: "86 squares", by: "Fawn", img: "images/pattern-275.png" },
+  { n: 276,  count: "1,850 squares", by: "Fawn", img: "images/pattern-276.png" },
+  { n: 277,  count: "130 squares", by: "Fawn", img: "images/pattern-277.png" },
+  { n: 278,  count: "130 squares", by: "Fawn", img: "images/pattern-278.png" },
+  { n: 279,  count: "988 squares", by: "Fawn", img: "images/pattern-279.png" },
+  { n: 280,  count: "45 squares", by: "Fawn", img: "images/pattern-280.png" },
+  { n: 281,  count: "1,894 squares", by: "Fawn", img: "images/pattern-281.png" },
+  { n: 282,  count: "128 squares", by: "Fawn", img: "images/pattern-282.png" },
+  { n: 283,  count: "1,849 squares", by: "Fawn", img: "images/pattern-283.png" },
+  { n: 284,  count: "88 squares", by: "Fawn", img: "images/pattern-284.png" },
+  { n: 285,  count: "215 squares", by: "Fawn", img: "images/pattern-285.png" },
+  { n: 286,  count: "128 squares", by: "Fawn", img: "images/pattern-286.png" },
+  { n: 287,  count: "127 squares", by: "Fawn", img: "images/pattern-287.png" },
+  { n: 288,  count: "132 squares", by: "Fawn", img: "images/pattern-288.png" },
+  { n: 289,  count: "1,978 squares", by: "Fawn", img: "images/pattern-289.png" },
+  { n: 290,  count: "87 squares", by: "Fawn", img: "images/pattern-290.png" },
+  { n: 291,  count: "8,796,093,022,209 squares", by: "Fawn", img: "images/pattern-291.png" },
+  { n: 292,  count: "4.3980465e+12 squares", by: "Fawn", img: "images/pattern-292.png" },
+  { n: 293,  count: "5,419 squares", by: "?", img: "images/pattern-293.png" },
+  { n: 294,  count: "1,808 squares", by: "Fawn", img: "images/pattern-294.png" },
+  { n: 295,  count: "171 squares", by: "Fawn", img: "images/pattern-295.png" },
+  { n: 296,  count: "226 squares", by: "Fawn", img: "images/pattern-296.png" },
+  { n: 297,  count: "90 squares", by: "Fawn", img: "images/pattern-297.png" },
+  { n: 298,  count: "991 squares", by: "Fawn", img: "images/pattern-298.png" },
+  { n: 299,  count: "4,398,046,511,106 squares", by: "Fawn", img: "images/pattern-299.png" },
+  { n: 300,  count: "3,785 tennis balls", by: "Fawn", img: "images/pattern-300.png" },
+  { n: 301,  count: "130 cubes", by: "Benjamin Domine", img: "images/pattern-301.png" },
+  { n: 302,  count: "1,893 squares", by: "Fawn", img: "images/pattern-302.png" },
+  { n: 303,  count: "4.3980465e+12 squares", by: "Fawn", img: "images/pattern-303.png" },
+  { n: 304,  count: "87 squares", by: "Fawn", img: "images/pattern-304.png" },
+  { n: 305,  count: "128 squares", by: "Fawn", img: "images/pattern-305.png" },
+  { n: 306,  count: "85 blue triangles", by: "Bradyn Stricherz", img: "images/pattern-306.png" },
+  { n: 307,  count: "1,078 squares", by: "Fawn", img: "images/pattern-307.png" },
+  { n: 308,  count: "174 squares", by: "Fawn", img: "images/pattern-308.png" },
+  { n: 309,  count: "1,980 squares", by: "Fawn", img: "images/pattern-309.png" },
+  { n: 310,  count: "3.2825697e+20 squares", by: "Fawn", img: "images/pattern-310.png" },
+  { n: 311,  count: "1,895 squares", by: "Fawn", img: "images/pattern-311.png" },
+  { n: 312,  count: "260 squares", by: "Fawn", img: "images/pattern-312.png" },
+  { n: 313,  count: "126 squares", by: "Fawn", img: "images/pattern-313.png" },
+  { n: 314,  count: "949 squares", by: "Fawn", img: "images/pattern-314.png" },
+  { n: 315,  count: "87 squares", by: "Fawn", img: "images/pattern-315.png" },
+  { n: 316,  count: "1,892 squares", by: "Fawn", img: "images/pattern-316.png" },
+  { n: 317,  count: "4.3980465e+12 squares", by: "Fawn", img: "images/pattern-317.png" },
+  { n: 318,  count: "176 squares", by: "Fawn", img: "images/pattern-318.png" },
+  { n: 319,  count: "1,978 squares", by: "Fawn", img: "images/pattern-319.png" },
+  { n: 320,  count: "3.2825697e+20 squares", by: "Fawn", img: "images/pattern-320.png" },
+  { n: 321,  count: "88 pineapples", by: "Ruby Beals", img: "images/pattern-321.png" },
+  { n: 322,  count: "5,548 squares", by: "Fawn", img: "images/pattern-322.png" },
+  { n: 323,  count: "1,851 squares", by: "Fawn", img: "images/pattern-323.png" },
+  { n: 324,  count: "264 squares", by: "Fawn", img: "images/pattern-324.png" },
+  { n: 325,  count: "1,934 squares", by: "Fawn", img: "images/pattern-325.png" },
+  { n: 326,  count: "437 squares", by: "Fawn", img: "images/pattern-326.png" },
+  { n: 327,  count: "991 squares", by: "Fawn", img: "images/pattern-327.png" },
+  { n: 328,  count: "131 squares", by: "Fawn", img: "images/pattern-328.png" },
+  { n: 329,  count: "3,788 squares", by: "Fawn", img: "images/pattern-329.png" },
+  { n: 330,  count: "2,797 squares", by: "Fawn", img: "images/pattern-330.png" },
+  { n: 331,  count: "1,937 squares", by: "Fawn", img: "images/pattern-331.png" },
+  { n: 332,  count: "183 squares", by: "Fawn", img: "images/pattern-332.png" },
+  { n: 333,  count: "1.319414e+13 squares", by: "Fawn", img: "images/pattern-333.png" },
+  { n: 334,  count: "47 squares", by: "Fawn", img: "images/pattern-334.png" },
+  { n: 335,  count: "88 squares", by: "Fawn", img: "images/pattern-335.png" },
+  { n: 336,  count: "1,894 squares", by: "Fawn", img: "images/pattern-336.png" },
+  { n: 337,  count: "948 squares", by: "Fawn", img: "images/pattern-337.png" },
+  { n: 338,  count: "87 squares", by: "Fawn", img: "images/pattern-338.png" },
+  { n: 339,  count: "1,981 squares", by: "Fawn", img: "images/pattern-339.png" },
+  { n: 340,  count: "1.0941899e+20 squares", by: "Fawn", img: "images/pattern-340.png" },
+  { n: 341,  count: "303 squares", by: "Fawn", img: "images/pattern-341.png" },
+  { n: 342,  count: "1,936 squares", by: "Fawn", img: "images/pattern-342.png" },
+  { n: 343,  count: "174 squares", by: "Fawn", img: "images/pattern-343.png" },
+  { n: 344,  count: "215 squares", by: "Fawn", img: "images/pattern-344.png" },
+  { n: 345,  count: "1,891 squares", by: "Fawn", img: "images/pattern-345.png" },
+  { n: 346,  count: "3,744 squares", by: "Fawn", img: "images/pattern-346.png" },
+  { n: 347,  count: "310 squares", by: "Fawn", img: "images/pattern-347.png" },
+  { n: 348,  count: "177 squares", by: "Fawn", img: "images/pattern-348.png" },
+  { n: 349,  count: "3.2825697e+20 squares", by: "Fawn", img: "images/pattern-349.png" },
+  { n: 350,  count: "175 squares", by: "Fawn", img: "images/pattern-350.png" },
+  { n: 351,  count: "1,894 squares", by: "Fawn", img: "images/pattern-351.png" },
+  { n: 352,  count: "128 squares", by: "Fawn", img: "images/pattern-352.png" },
+  { n: 353,  count: "132 squares", by: "Fawn", img: "images/pattern-353.png" },
+  { n: 354,  count: "1,978 squares", by: "Fawn", img: "images/pattern-354.png" },
+  { n: 355,  count: "1,034 squares", by: "Fawn", img: "images/pattern-355.png" },
+  { n: 356,  count: "172 squares", by: "Fawn", img: "images/pattern-356.png" },
+  { n: 357,  count: "1,935 squares", by: "Fawn", img: "images/pattern-357.png" },
+  { n: 358,  count: "8.796093e+12 squares", by: "Fawn", img: "images/pattern-358.png" },
+  { n: 359,  count: "130 squares", by: "Fawn", img: "images/pattern-359.png" },
+  { n: 360,  count: "1,851 squares", by: "Fawn", img: "images/pattern-360.png" },
+  { n: 361,  count: "92 squares", by: "Kate, grade 6", img: "images/pattern-361.png" },
+  { n: 362,  count: "7,396 squares", by: "Ryan and Silas, grade 6", img: "images/pattern-362.png" },
+  { n: 363,  count: "1,892 squares", by: "Margy, grade 6", img: "images/pattern-363.png" },
+  { n: 364,  count: "87 squares", by: "Fawn", img: "images/pattern-364.png" },
+  { n: 365,  count: "87 squares", by: "Fawn", img: "images/pattern-365.png" },
+  { n: 366,  count: "1,854 bevels", by: "Duc Anh", img: "images/pattern-366.png" },
+  { n: 367,  count: "1,852 octagons", by: "Cody Aldous", img: "images/pattern-367.png" },
+  { n: 368,  count: "3,702 triangles", by: "Tuong Vy Nguyen", img: "images/pattern-368.png" },
+  { n: 369,  count: "952 squares", by: "Hui Ju Lee", img: "images/pattern-369.png" },
+  { n: 370,  count: "1,850 squares", by: "Lina Han", img: "images/pattern-370.png" },
+  { n: 371,  count: "1,936 asterisks", by: "Christophe Plattet", img: "images/pattern-371.png" },
+  { n: 372,  count: "3,697 squares", by: "Tom Nguyen", img: "images/pattern-372.png" },
+  { n: 373,  count: "131 squares", by: "Julianna Messineo", img: "images/pattern-373.png" },
+  { n: 374,  count: "86 circles", by: "Nick Vu", img: "images/pattern-374.png" },
+  { n: 375,  count: "85 squares", by: "Tae Woo Kim", img: "images/pattern-375.png" },
+  { n: 376,  count: "1,855 squares", by: "Seo Hyun Park", img: "images/pattern-376.png" },
+  { n: 377,  count: "1,938 squares", by: "Eunbeen Ko", img: "images/pattern-377.png" },
+  { n: 378,  count: "133 squares", by: "Tony Kim", img: "images/pattern-378.png" },
+  { n: 379,  count: "1,032 circles", by: "Christian Lee", img: "images/pattern-379.png" },
+  { n: 380,  count: "129 squares", by: "Duy Nguyen", img: "images/pattern-380.png" },
+  { n: 381,  count: "128 squares", by: "Minh Duc Nguyen", img: "images/pattern-381.png" },
+  { n: 382,  count: "85 cubes", by: "Juha Cho", img: "images/pattern-382.png" },
+  { n: 383,  count: "989 squares", by: "Linh Nguyen", img: "images/pattern-383.png" },
+  { n: 384,  count: "1,976 cubes", by: "Jun Hu Park", img: "images/pattern-384.png" },
+  { n: 385,  count: "1,851 squares", by: "Ji Yun Her", img: "images/pattern-385.png" },
+  { n: 386,  count: "5,419 hexagons", by: "Gule Khokhar", img: "images/pattern-386.png" },
+  { n: 387,  count: "1,976 triangles", by: "YunSang Hwang", img: "images/pattern-387.png" },
+  { n: 388,  count: "2,021 squares", by: "Min Jung Kim", img: "images/pattern-388.png" },
+  { n: 389,  count: "45 squares", by: "Juliet Nam", img: "images/pattern-389.png" },
+  { n: 390,  count: "3,743 squares", by: "Chaewon Heo", img: "images/pattern-390.png" },
+  { n: 391,  count: "1,935 squares", by: "Patrick Vennebush", img: "images/pattern-391.png" },
+  { n: 392,  count: "3,615 zeros", by: "Christophe Plattet", img: "images/pattern-392.png" },
+  { n: 393,  count: "865 squares", by: "Johnothon Sauer", img: "images/pattern-393.png" },
+  { n: 394,  count: "4.9238545e+21 squares", by: "Johnothon Sauer", img: "images/pattern-394.png" },
+  { n: 395,  count: "345 squares", by: "Johnothon Sauer", img: "images/pattern-395.png" },
+  { n: 396,  count: "6,348 squares", by: "Johnothon Sauer", img: "images/pattern-396.png" },
+  { n: 397,  count: "320 squares", by: "Johnothon Sauer", img: "images/pattern-397.png" },
+  { n: 398,  count: "5,810 squares", by: "Johnothon Sauer", img: "images/pattern-398.png" },
+  { n: 399,  count: "451 squares", by: "Johnothon Sauer", img: "images/pattern-399.png" },
+  { n: 400,  count: "984,770,902,183,611,232,880 squares", by: "Johnothon Sauer", img: "images/pattern-400.png" },
+  { n: 401,  count: "6,160 squares", by: "Johnothon Sauer", img: "images/pattern-401.png" },
+  { n: 402,  count: "7,577 squares", by: "Johnothon Sauer", img: "images/pattern-402.png" },
+  { n: 403,  count: "2,162 rectangles", by: "Johnothon Sauer", img: "images/pattern-403.png" },
+  { n: 404,  count: "4,807,526,975 squares", by: "Johnothon Sauer", img: "images/pattern-404.png" },
+  { n: 405,  count: "3,915 squares", by: "Johnothon Sauer", img: "images/pattern-405.png" },
+  { n: 406,  count: "3,872 squares", by: "Johnothon Sauer", img: "images/pattern-406.png" },
+  { n: 407,  count: "2,211 squares", by: "Johnothon Sauer", img: "images/pattern-407.png" },
+  { n: 408,  count: "7,232 squares", by: "Johnothon Sauer", img: "images/pattern-408.png" },
+  { n: 409,  count: "178 squares", by: "Johnothon Sauer", img: "images/pattern-409.png" },
+  { n: 410,  count: "3,960 squares", by: "Johnothon Sauer", img: "images/pattern-410.png" },
+  { n: 411,  count: "85,184 squares", by: "Johnothon Sauer", img: "images/pattern-411.png" },
+  { n: 412,  count: "5.2776558e+13 squares", by: "Johnothon Sauer", img: "images/pattern-412.png" },
+  { n: 413,  count: "5,897 squares", by: "Johnothon Sauer", img: "images/pattern-413.png" },
+  { n: 414,  count: "175 squares", by: "Johnothon Sauer", img: "images/pattern-414.png" },
+  { n: 415,  count: "14,460 squares", by: "Johnothon Sauer", img: "images/pattern-415.png" },
+  { n: 416,  count: "2,025 squares", by: "Johnothon Sauer", img: "images/pattern-416.png" },
+  { n: 417,  count: "9,858 squares", by: "Johnothon Sauer", img: "images/pattern-417.png" },
+  { n: 418,  count: "134 squares", by: "Johnothon Sauer", img: "images/pattern-418.png" },
+  { n: 419,  count: "7,743 squares", by: "Johnothon Sauer", img: "images/pattern-419.png" },
+  { n: 420,  count: "91,217 squares", by: "Johnothon Sauer", img: "images/pattern-420.png" },
+  { n: 421,  count: "13,545 outside dots", by: "Johnnie Wilson", img: "images/pattern-421.png" },
+  { n: 422,  count: "38,829 outside dots", by: "Johnnie Wilson", img: "images/pattern-422.png" },
+  { n: 423,  count: "153,595 squares", by: "Fawn", img: "images/pattern-423.png" },
+  { n: 424,  count: "169 glasses", by: "Mr. Amrine's 8th graders", img: "images/pattern-424.png" },
+  { n: 425,  count: "1,849 lemonheads", by: "Mr. Amrine's 8th graders", img: "images/pattern-425.png" },
+  { n: 426,  count: "1,891 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-426.png" },
+  { n: 427,  count: "2,017 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-427.png" },
+  { n: 428,  count: "257 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-428.png" },
+  { n: 429,  count: "1,978 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-429.png" },
+  { n: 430,  count: "3,872 squares", by: "Fawn", img: "images/pattern-430.png" },
+  { n: 431,  count: "174 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-431.png" },
+  { n: 432,  count: "1,891 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-432.png" },
+  { n: 433,  count: "88 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-433.png" },
+  { n: 434,  count: "313 squares", by: "Martha Livingstone", img: "images/pattern-434.png" },
+  { n: 435,  count: "14 circles", by: "Andrew Uyeno", img: "images/pattern-435.png" },
+  { n: 436,  count: "271/4 circles", by: "Andrew Uyeno", img: "images/pattern-436.png" },
+  { n: 437,  count: "85/3 circles", by: "Andrew Uyeno", img: "images/pattern-437.png" },
+  { n: 438,  count: "1,983 squares", by: "Fawn", img: "images/pattern-438.png" },
+  { n: 439,  count: "1,852 squares", by: "Nick", img: "images/pattern-439.png" },
+  { n: 440,  count: "1,935 squares", by: "Alison", img: "images/pattern-440.png" },
+  { n: 441,  count: "128 squares", by: "Sutty", img: "images/pattern-441.png" },
+  { n: 442,  count: "129 squares", by: "Daan", img: "images/pattern-442.png" },
+  { n: 443,  count: "1,893 squares", by: "Madison", img: "images/pattern-443.png" },
+  { n: 444,  count: "85 squares", by: "Malin", img: "images/pattern-444.png" },
+  { n: 445,  count: "1,937 squares", by: "Fawn", img: "images/pattern-445.png" },
+  { n: 446,  count: "3,698 squares", by: "Suraj", img: "images/pattern-446.png" },
+  { n: 447,  count: "1,940 squares", by: "Nicholas", img: "images/pattern-447.png" },
+  { n: 448,  count: "1,935 squares", by: "Thomas", img: "images/pattern-448.png" },
+  { n: 449,  count: "2,160 squares", by: "Jabula", img: "images/pattern-449.png" },
+  { n: 450,  count: "1,982/2162 green, 43/2162 brown, 137/2162 white", by: "Andrew Uyeno", img: "images/pattern-450.png" },
+  { n: 451,  count: "7,225 squares", by: "Georgia", img: "images/pattern-451.png" },
+  { n: 452,  count: "992 squares", by: "Ally", img: "images/pattern-452.png" },
+  { n: 453,  count: "127 squares", by: "Jenna", img: "images/pattern-453.png" },
+  { n: 454,  count: "3,418,844 chicks", by: "Anna", img: "images/pattern-454.png" },
+  { n: 455,  count: "85 squares", by: "Serena", img: "images/pattern-455.png" },
+  { n: 456,  count: "144 squares", by: "Stephanie Moore", img: "images/pattern-456.png" },
+  { n: 457,  count: "424 squares", by: "Mason Sherod (grade 7)", img: "images/pattern-457.png" },
+  { n: 458,  count: "88 squares", by: "Macy Kling (grade 7)", img: "images/pattern-458.png" },
+  { n: 459,  count: "1,420 squares", by: "Lindsey Hawk (grade 7)", img: "images/pattern-459.png" },
+  { n: 460,  count: "301 squares", by: "Tere-ka Bishop (grade 7)", img: "images/pattern-460.png" },
+  { n: 461,  count: "89 squares", by: "Teagan Schultz (grade 7)", img: "images/pattern-461.png" },
+  { n: 462,  count: "177 squares", by: "Fawn", img: "images/pattern-462.png" },
+  { n: 463,  count: "341 squares", by: "Jesse Bakker (grade 7)", img: "images/pattern-463.png" },
+  { n: 464,  count: "1,978 squares", by: "Fawn", img: "images/pattern-464.png" },
+  { n: 465,  count: "44 triangles, 946 rhombuses", by: "Michael Jacobs", img: "images/pattern-465.png" },
+  { n: 466,  count: "-7 units", by: "Stephanie Moore", img: "images/pattern-466.png" },
+  { n: 467,  count: "173 squares", by: "Eric Appleton", img: "images/pattern-467.png" },
+  { n: 468,  count: "2,629 squares", by: "Mark Trushkowsky", img: "images/pattern-468.png" },
+  { n: 469,  count: "513 squares", by: "Christophe Plattet", img: "images/pattern-469.png" },
+  { n: 470,  count: "1,935 squares", by: "David", img: "images/pattern-470.png" },
+  { n: 471,  count: "128 squares", by: "Fawn", img: "images/pattern-471.png" },
+  { n: 472,  count: "4,398,046,513,040 squares", by: "Fawn", img: "images/pattern-472.png" },
+  { n: 473,  count: "528 Os", by: "Christophe Plattet", img: "images/pattern-473.png" },
+  { n: 474,  count: "5,419 hexagons", by: "Ian, 7th/8th class, Maryland", img: "images/pattern-474.png" },
+  { n: 475,  count: "1,896 squares", by: "Fawn", img: "images/pattern-475.png" },
+  { n: 476,  count: "2,881 squares", by: "Fawn", img: "images/pattern-476.png" },
+  { n: 477,  count: "173 squares", by: "Fawn", img: "images/pattern-477.png" },
+  { n: 478,  count: "2,021 squares", by: "Leo, 7th/8th class, Maryland", img: "images/pattern-478.png" },
+  { n: 479,  count: "1 hexagon + 946 trapezoids", by: "Grayson Loftus (age 13), dedicated to Ms. Caffrey", img: "images/pattern-479.png" },
+  { n: 480,  count: "265 squares", by: "Fawn", img: "images/pattern-480.png" },
+  { n: 481,  count: "8,796,093,022,210 squares", by: "Kyan, 7th/8th class, Maryland", img: "images/pattern-481.png" },
+  { n: 482,  count: "3,796 triangles", by: "Drew, 7th/8th class, Maryland", img: "images/pattern-482.png" },
+  { n: 483,  count: "1,143 triangles", by: "Drew, 7th/8th class, Maryland", img: "images/pattern-483.png" },
+  { n: 484,  count: "2,024 squares", by: "Fawn", img: "images/pattern-484.png" },
+  { n: 485,  count: "3,784 squares", by: "Eric Appleton", img: "images/pattern-485.png" },
+  { n: 486,  count: "3,784 squares", by: "Fawn", img: "images/pattern-486.png" },
+  { n: 487,  count: "130 squares", by: "Fawn", img: "images/pattern-487.png" },
+  { n: 488,  count: "2,839 circles", by: "Fawn", img: "images/pattern-488.png" },
+  { n: 489,  count: "131 squares", by: "Fawn", img: "images/pattern-489.png" },
+  { n: 490,  count: "130 squares", by: "Colin Burke and Juliana Geary", img: "images/pattern-490.png" },
+  { n: 491,  count: "130 squares", by: "Avery Coia and Brady Eissler", img: "images/pattern-491.png" },
+  { n: 492,  count: "130 squares", by: "Nevina Kazakov and Merrick Funk", img: "images/pattern-492.png" },
+  { n: 493,  count: "304 squares", by: "Fawn", img: "images/pattern-493.png" },
+  { n: 494,  count: "22 dark sq in left column, 462 light sq", by: "Mike Weimerskirch", img: "images/pattern-494.png" },
+  { n: 495,  count: "7,740 pieces", by: "Christophe Plattet", img: "images/pattern-495.png" },
+  { n: 496,  count: "31,218 pieces", by: "Christophe Plattet", img: "images/pattern-496.png" },
+  { n: 497,  count: "1,893 pieces", by: "Christophe Plattet", img: "images/pattern-497.png" },
+  { n: 498,  count: "27,434 pieces", by: "Christophe Plattet", img: "images/pattern-498.png" },
+  { n: 499,  count: "894,916 pieces", by: "Christophe Plattet", img: "images/pattern-499.png" },
+  { n: 500,  count: "1,849 pieces", by: "Christophe Plattet", img: "images/pattern-500.png" },
+];
+
+/* ---- Machinery below. You shouldn't need to touch it. ---- */
+
+const RANGE_SIZE = 50, MAX = 500;
+const grid = document.getElementById("grid");
+const rangesEl = document.getElementById("ranges");
+const titleEl = document.getElementById("range-title");
+let activeLo = Number(localStorage.getItem("vp-active-range")) || 1;
+
+function buildRanges(){
+  for(let lo = 1; lo <= MAX; lo += RANGE_SIZE){
+    const hi = lo + RANGE_SIZE - 1;
+    const b = document.createElement("button");
+    b.textContent = `${lo}\u2013${hi}`;
+    b.dataset.lo = lo;
+    b.onclick = () => { activeLo = lo; localStorage.setItem("vp-active-range", lo); render(); };
+    rangesEl.appendChild(b);
+  }
+
+  // Workshop sits after the last range, styled the same way, but links to its own page
+  const workshopLink = document.createElement("a");
+  workshopLink.textContent = "Workshop";
+  workshopLink.href = "workshop.html";
+  rangesEl.appendChild(workshopLink);
+}
+
+function render(){
+  const hi = activeLo + RANGE_SIZE - 1;
+  titleEl.innerHTML = `Patterns ${activeLo}\u2013${hi}`;
+  [...rangesEl.children].forEach(b => b.classList.toggle("active", Number(b.dataset.lo) === activeLo));
+
+  const inRange = patterns.filter(p => p.n >= activeLo && p.n <= hi).sort((a,b) => a.n - b.n);
+  grid.innerHTML = inRange.map(cardHTML).join("") ||
+    `<p style="grid-column:1/-1;color:var(--muted);font-style:italic;padding:20px 0;">No patterns in this range yet.</p>`;
+}
+
+function escAttr(s){
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;");
+}
+
+function cardHTML(p){
+  const hasImg = !!p.img;
+  const media = hasImg
+    ? `<img src="${p.img}" alt="Pattern ${p.n}" onerror="this.closest('.thumb').classList.remove('clickable'); this.parentNode.innerHTML=placeholder(${p.n})">`
+    : placeholder(p.n);
+  const linkIcon = p.link
+    ? ` <a href="${escAttr(p.link)}" target="_blank" rel="noopener" class="src-link" title="View original source" onclick="event.stopPropagation()">&#128279;</a>`
+    : "";
+  const by = p.by ? `<span class="by">by ${p.by}${linkIcon}</span>` : "";
+  const label = p.count
+    ? `Pattern ${p.n} &middot; ${p.count}`
+    : `Pattern ${p.n} &middot; <em>count TBD</em>`;
+  const dataAttrs = hasImg
+    ? ` data-img="${escAttr(p.img)}" data-label="${escAttr(label)}" data-by="${escAttr(p.by||"")}"`
+    : "";
+  return `<div class="pattern">
+      <div class="thumb${hasImg ? " clickable" : ""}"${dataAttrs}>${media}</div>
+      <div class="caption">
+        <span class="label">${label}</span>${by}
+      </div>
+    </div>`;
+}
+
+function openLightbox(img, label, by){
+  document.getElementById("lb-img").src = img;
+  document.getElementById("lb-label").innerHTML = label;
+  document.getElementById("lb-by").textContent = by ? `by ${by}` : "";
+  document.getElementById("lightbox").classList.add("open");
+}
+
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("open");
+}
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeLightbox();
+});
+
+// Event delegation: catch clicks on any clickable thumb, present or future
+document.getElementById("grid").addEventListener("click", (e) => {
+  const thumb = e.target.closest(".thumb.clickable");
+  if(!thumb) return;
+  openLightbox(thumb.dataset.img, thumb.dataset.label, thumb.dataset.by);
+});
+
+function placeholder(n){
+  return `<div class="placeholder">
+            <span class="motif"><span></span><span></span><span></span></span>
+            <small>Pattern ${n} &middot; add image</small>
+          </div>`;
+}
+
+function goToRandomPattern(){
+  const btn = document.getElementById("random-btn");
+  btn.disabled = true;
+  btn.textContent = "Finding one...";
+
+  let tries = 0;
+  const maxTries = 60;
+
+  function attempt(){
+    tries++;
+    if(tries > maxTries){
+      btn.disabled = false;
+      btn.innerHTML = "&#127920; Random Pattern";
+      alert("Couldn't find a finished pattern yet — add some images first!");
+      return;
+    }
+    const n = Math.floor(Math.random() * MAX) + 1;
+    const p = patterns.find(x => x.n === n);
+    if(!p || !p.img){ return attempt(); }
+
+    const test = new Image();
+    test.onload = () => {
+      const lo = Math.floor((n - 1) / RANGE_SIZE) * RANGE_SIZE + 1;
+      activeLo = lo;
+      localStorage.setItem("vp-active-range", lo);
+      render();
+
+      requestAnimationFrame(() => {
+        const thumb = document.querySelector(`.thumb[data-img="${CSS.escape(p.img)}"]`);
+        btn.disabled = false;
+        btn.innerHTML = "&#127920; Random Pattern";
+        if(!thumb){ return; }
+        thumb.scrollIntoView({ behavior: "smooth", block: "center" });
+        thumb.closest(".pattern").classList.add("flash");
+        setTimeout(() => thumb.closest(".pattern").classList.remove("flash"), 1500);
+        setTimeout(() => {
+          openLightbox(thumb.dataset.img, thumb.dataset.label, thumb.dataset.by);
+        }, 450);
+      });
+    };
+    test.onerror = () => attempt();
+    test.src = p.img;
+  }
+  attempt();
+}
+
+document.getElementById("random-btn").addEventListener("click", goToRandomPattern);
+
+buildRanges();
+render();
+</script>
+</body>
+</html>
