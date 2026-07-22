@@ -186,6 +186,8 @@
 
   <div class="grid" id="grid"></div>
 
+  <nav><div class="nav-inner" id="ranges-bottom"></div></nav>
+
   <div id="lightbox" onclick="if(event.target===this) closeLightbox()">
     <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
     <div class="lb-inner">
@@ -232,16 +234,26 @@ const titleEl = document.getElementById("range-title");
 let activeLo = Number(localStorage.getItem("vp-active-range")) || 1;
 
 function buildRanges(){
+  const rangesBottomEl = document.getElementById("ranges-bottom");
   for(let lo = 1; lo <= MAX; lo += RANGE_SIZE){
     const hi = lo + RANGE_SIZE - 1;
+    const onClick = () => { activeLo = lo; localStorage.setItem("vp-active-range", lo); render(); };
+
     const b = document.createElement("button");
     b.textContent = `${lo}\u2013${hi}`;
     b.dataset.lo = lo;
-    b.onclick = () => { activeLo = lo; localStorage.setItem("vp-active-range", lo); render(); };
+    b.onclick = onClick;
     rangesEl.appendChild(b);
+
+    const b2 = document.createElement("button");
+    b2.textContent = `${lo}\u2013${hi}`;
+    b2.dataset.lo = lo;
+    b2.onclick = () => { onClick(); window.scrollTo({ top: 0, behavior: "smooth" }); };
+    rangesBottomEl.appendChild(b2);
   }
 
   // Workshop sits after the last range, styled the same way, but links to its own page
+  // (top row only -- the bottom row is just for quickly jumping between pattern ranges)
   const workshopLink = document.createElement("a");
   workshopLink.textContent = "Workshop";
   workshopLink.href = "workshop.html";
@@ -252,6 +264,7 @@ function render(){
   const hi = activeLo + RANGE_SIZE - 1;
   titleEl.innerHTML = `Patterns ${activeLo}\u2013${hi}`;
   [...rangesEl.children].forEach(b => b.classList.toggle("active", Number(b.dataset.lo) === activeLo));
+  [...document.getElementById("ranges-bottom").children].forEach(b => b.classList.toggle("active", Number(b.dataset.lo) === activeLo));
 
   const inRange = patterns.filter(p => p.n >= activeLo && p.n <= hi).sort((a,b) => a.n - b.n);
   grid.innerHTML = inRange.map(cardHTML).join("") ||
