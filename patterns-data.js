@@ -95,7 +95,7 @@ const patterns = [
   { n: 89,  count: "307,105 squares", by: "Fawn", img: "images/pattern-89.png" , eq: "4n^3 - 6n^2 + 4n - 1" },
   { n: 90,  count: "218 squares", by: "Fawn", img: "images/pattern-90.png" , eq: "5n + 3" },
   { n: 91,  count: "2,023 squares", by: "Fawn", img: "images/pattern-91.png" , eq: "n^2 + 4n + 2" },
-  { n: 92,  count: "1,806 squares", by: "Fawn", img: "images/pattern-92.png" , eq: "" },
+  { n: 92,  count: "1,892 squares", by: "Fawn", img: "images/pattern-92.png" , eq: "n^2 + n" },
   { n: 93,  count: "3,786 squares", by: "Fawn", img: "images/pattern-93.png" , eq: "2n^2 + 2n + 2" },
   { n: 94,  count: "948 squares", by: "Fawn", img: "images/pattern-94.png" , eq: "(n^2 + n + 4)/2" },
   { n: 95,  count: "216 squares", by: "Fawn", img: "images/pattern-95.png" , eq: "5n + 1" },
