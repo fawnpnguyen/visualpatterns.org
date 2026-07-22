@@ -21,6 +21,7 @@
     --shadow:  0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.04);
     --linear:  #FFF3A3;   /* yellow  */
     --quad:    #CFE8D3;   /* green   */
+    --other:   #E3E3E0;   /* soft gray */
 
     --display: "Montserrat", system-ui, sans-serif;
     --body:    "Inter", system-ui, sans-serif;
@@ -56,7 +57,7 @@
   .swatch{ width:14px; height:14px; border-radius:3px; display:inline-block; border:1px solid var(--rule); }
   .swatch.linear{ background:var(--linear); }
   .swatch.quad{ background:var(--quad); }
-  .swatch.other{ background:#fff; }
+  .swatch.other{ background:var(--other); }
 
   .print-btn{
     display:block; margin:14px auto 0;
@@ -96,8 +97,36 @@
     aspect-ratio:16/10; display:flex; align-items:center; justify-content:center;
     background:#fff;
   }
+  .thumb.clickable{ cursor:zoom-in; }
+  .thumb.clickable:hover{ box-shadow:inset 0 0 0 2px var(--accent); }
   .thumb img{ width:100%; height:100%; object-fit:contain; padding:10px; }
   .placeholder{ color:#bbb; font-size:13px; font-style:italic; }
+
+  #lightbox{
+    position:fixed; inset:0; background:rgba(20,20,20,.86);
+    display:none; align-items:center; justify-content:center;
+    z-index:1000; padding:32px; cursor:zoom-out;
+  }
+  #lightbox.open{ display:flex; }
+  #lightbox .lb-inner{
+    max-width:min(1100px, 92vw); max-height:88vh;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+    cursor:default;
+  }
+  #lightbox img{
+    max-width:100%; max-height:72vh; object-fit:contain;
+    background:#fff; border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  #lightbox .lb-caption{ text-align:center; color:#fff; }
+  #lightbox .lb-caption .label{ font-weight:600; font-size:17px; }
+  #lightbox .lb-caption .by{ display:block; margin-top:6px; font-style:italic; color:#cfcfcf; font-size:14px; }
+  #lightbox .lb-close{
+    position:absolute; top:20px; right:26px;
+    color:#fff; font-size:32px; line-height:1; background:none; border:none;
+    cursor:pointer; opacity:.8;
+  }
+  #lightbox .lb-close:hover{ opacity:1; }
 
   .caption{ text-align:center; padding:8px 10px 0; font-size:14px; }
   .caption .label{ font-weight:600; }
@@ -117,6 +146,7 @@
   .eq-bar .fden{ padding:2px 4px 0; }
   .eq-bar.linear{ background:var(--linear); }
   .eq-bar.quad{ background:var(--quad); }
+  .eq-bar.other{ background:var(--other); }
   .eq-bar.missing{ color:#bbb; font-weight:400; font-style:italic; font-family:var(--body); font-size:13px; }
 
   @media print{
@@ -137,7 +167,7 @@
   <div class="legend">
     <span><span class="swatch linear"></span> Linear</span>
     <span><span class="swatch quad"></span> Quadratic</span>
-    <span><span class="swatch other"></span> Other (cubic, Fibonacci, etc.)</span>
+    <span><span class="swatch other"></span> Other (cubic, exponential, Fibonacci, etc.)</span>
   </div>
 
   <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
@@ -146,6 +176,17 @@
 
   <div class="section-head"><h2 id="range-title">Patterns 1&ndash;50</h2></div>
   <div class="grid" id="grid"></div>
+
+  <div id="lightbox" onclick="if(event.target===this) closeLightbox()">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <div class="lb-inner">
+      <img id="lb-img" src="" alt="">
+      <div class="lb-caption">
+        <span class="label" id="lb-label"></span>
+        <span class="by" id="lb-by"></span>
+      </div>
+    </div>
+  </div>
 
 <script src="patterns-data.js"></script>
 <script>
@@ -243,8 +284,9 @@ function render(){
 }
 
 function cardHTML(p){
-  const media = p.img
-    ? `<img src="${escAttr(p.img)}" alt="Pattern ${p.n}" onerror="this.parentNode.innerHTML='<span class=placeholder>no image yet</span>'">`
+  const hasImg = !!p.img;
+  const media = hasImg
+    ? `<img src="${escAttr(p.img)}" alt="Pattern ${p.n}" onerror="this.closest('.thumb').classList.remove('clickable'); this.parentNode.innerHTML='<span class=placeholder>no image yet</span>'">`
     : `<span class="placeholder">no image yet</span>`;
   const by = p.by ? `<span class="by">by ${p.by}</span>` : "";
   const label = p.count ? `Pattern ${p.n} &middot; ${p.count}` : `Pattern ${p.n} &middot; <em>count TBD</em>`;
@@ -252,14 +294,39 @@ function cardHTML(p){
   const cls = classify(p.eq);
   const eqText = p.eq && p.eq.trim() ? formatEquation(p.eq) : "equation not yet added";
 
+  const dataAttrs = hasImg
+    ? ` data-img="${escAttr(p.img)}" data-label="${escAttr(label)}" data-by="${escAttr(p.by||"")}"`
+    : "";
+
   return `<div class="card">
-      <div class="thumb">${media}</div>
+      <div class="thumb${hasImg ? " clickable" : ""}"${dataAttrs}>${media}</div>
       <div class="caption">
         <span class="label">${label}</span>${by}
       </div>
       <div class="eq-bar ${cls}">${eqText}</div>
     </div>`;
 }
+
+function openLightbox(img, label, by){
+  document.getElementById("lb-img").src = img;
+  document.getElementById("lb-label").innerHTML = label;
+  document.getElementById("lb-by").textContent = by ? `by ${by}` : "";
+  document.getElementById("lightbox").classList.add("open");
+}
+
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("open");
+}
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeLightbox();
+});
+
+grid.addEventListener("click", (e) => {
+  const thumb = e.target.closest(".thumb.clickable");
+  if(!thumb) return;
+  openLightbox(thumb.dataset.img, thumb.dataset.label, thumb.dataset.by);
+});
 
 buildRanges();
 render();
