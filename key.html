@@ -92,6 +92,7 @@
   .card{
     border:1px solid var(--rule); border-radius:10px;
     box-shadow:var(--shadow); overflow:hidden; background:var(--card);
+    display:flex; flex-direction:column;
   }
   .thumb{
     aspect-ratio:16/10; display:flex; align-items:center; justify-content:center;
@@ -133,7 +134,7 @@
   .caption .by{ display:block; font-style:italic; color:var(--muted); font-size:12.5px; margin-top:2px; }
 
   .eq-bar{
-    margin-top:10px; padding:10px 8px; text-align:center;
+    margin-top:auto; padding:10px 8px; text-align:center;
     font-family:var(--display); font-size:15px; font-weight:600;
     border-top:1px solid var(--rule); background:#fff;
   }
@@ -273,6 +274,8 @@ function classify(eq){
   if(/\bF\s*\(/i.test(eq) || /fibonacci/i.test(eq)) return "other";
   // absolute-value patterns are V-shaped, not a straight line -> "other"
   if(/abs\s*\(/i.test(eq) || /\|.*\|/.test(eq)) return "other";
+  // floor/ceiling functions (piecewise, not a clean polynomial) -> "other"
+  if(/[\u230a\u230b\u2308\u2309]/.test(eq) || /floor\s*\(|ceil\s*\(/i.test(eq)) return "other";
   // exponential growth: catches both bare "^n" and parenthesized exponents
   // that contain n anywhere inside, like "3^(n-1)" or "2^((n+3)/2)".
   const expRe = /\^(\([^()]*(?:\([^()]*\)[^()]*)*\)|-?\w+)/g;
