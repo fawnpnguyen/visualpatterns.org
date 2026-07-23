@@ -269,6 +269,8 @@ function formatEquation(eq){
 
 function classify(eq){
   if(!eq || !eq.trim()) return "missing";
+  // Fibonacci or other function-notation growth (like "F(n+2)") is never linear/quad
+  if(/\bF\s*\(/i.test(eq) || /fibonacci/i.test(eq)) return "other";
   // absolute-value patterns are V-shaped, not a straight line -> "other"
   if(/abs\s*\(/i.test(eq) || /\|.*\|/.test(eq)) return "other";
   // exponential growth: catches both bare "^n" and parenthesized exponents
