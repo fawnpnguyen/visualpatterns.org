@@ -16,7 +16,7 @@ const patterns = [
   { n: 10,  count: "85 squares", by: "Fawn", img: "images/pattern-10.png" , eq: "2n - 1" },
   { n: 11,  count: "87 squares", by: "Fawn", img: "images/pattern-11.png" , eq: "2n + 1" },
   { n: 12,  count: "1,936 squares", by: "Fawn", img: "images/pattern-12.png" , eq: "n^2 + 2n + 1" },
-  { n: 13,  count: "946 squares", by: "Fawn", img: "images/pattern-13.png" , eq: "n(n+1)/2" },
+  { n: 13,  count: "948 squares", by: "Fawn", img: "images/pattern-13.png" , eq: "(n^2 + n + 4)/2" },
   { n: 14,  count: "259 squares", by: "Katie", img: "images/pattern-14.png" , eq: "6n + 1" },
   { n: 15,  count: "130 squares", by: "Katie", img: "images/pattern-15.png" , eq: "3n + 1" },
   { n: 16,  count: "3,784 triangles", by: "Fawn", img: "images/pattern-16.png" , eq: "2n^2 + 2n" },
