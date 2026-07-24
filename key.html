@@ -137,8 +137,9 @@
     margin-top:auto; padding:10px 8px; text-align:center;
     font-family:var(--display); font-size:15px; font-weight:600;
     border-top:1px solid var(--rule); background:#fff;
-    flex-grow:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    flex-grow:1; display:flex; align-items:center; justify-content:center;
   }
+  .eq-bar .eq-multi{ display:flex; flex-direction:column; align-items:center; gap:6px; }
   .eq-bar sup{ font-size:0.7em; vertical-align:super; line-height:0; }
   .eq-bar .nobreak{ white-space:nowrap; display:inline; vertical-align:baseline; }
   .eq-bar .eq-line{ display:block; }
@@ -274,7 +275,7 @@ function formatPart(part){
 function formatEquation(eq){
   const parts = eq.split(",").map(part => formatPart(part.trim()));
   if(parts.length === 1) return parts[0];
-  return parts.map(p => `<div class="eq-line">${p}</div>`).join("");
+  return '<div class="eq-multi">' + parts.map(p => `<div class="eq-line">${p}</div>`).join("") + '</div>';
 }
 
 function classify(eq){
