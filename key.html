@@ -141,6 +141,8 @@
   }
   .eq-bar sup{ font-size:0.7em; vertical-align:super; line-height:0; }
   .eq-bar .nobreak{ white-space:nowrap; display:inline; vertical-align:baseline; }
+  .eq-bar .eq-line{ display:block; }
+  .eq-bar .eq-line + .eq-line{ margin-top:6px; }
   .eq-bar .frac{
     display:inline-flex; flex-direction:column; align-items:center;
     vertical-align:middle; margin:0 3px; line-height:1.2;
@@ -270,7 +272,9 @@ function formatPart(part){
 // Splits on commas first (for multi-quantity equations like "s = ..., c = ...")
 // so a fraction in one part never accidentally swallows the other parts.
 function formatEquation(eq){
-  return eq.split(",").map(part => formatPart(part.trim())).join(", ");
+  const parts = eq.split(",").map(part => formatPart(part.trim()));
+  if(parts.length === 1) return parts[0];
+  return parts.map(p => `<div class="eq-line">${p}</div>`).join("");
 }
 
 function classify(eq){
