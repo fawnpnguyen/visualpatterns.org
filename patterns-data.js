@@ -259,7 +259,7 @@ const patterns = [
   { n: 253,  count: "79,507 squares", by: "Eric Appleton", img: "images/pattern-253.png" , eq: "n^3" },
   { n: 254,  count: "1,939 circles", by: "Fawn", img: "images/pattern-254.png" , eq: "n^2 + 2n + 4" },
   { n: 255,  count: "174 squares", by: "Fawn", img: "images/pattern-255.png" , eq: "4n + 2" },
-  { n: 256,  count: "130 squares", by: "Fawn", img: "images/pattern-256.png" , eq: "3n + 1" },
+  { n: 256,  count: "1,936 squares", by: "Sistine, grade 5", img: "images/pattern-256.png" , eq: "(n+1)^2" },
   { n: 257,  count: "2,019 squares", by: "Phebe Klein", img: "images/pattern-257.png" , eq: "n^2 + 4n - 2" },
   { n: 258,  count: "267 squares", by: "Koran Dortch", img: "images/pattern-258.png" , eq: "6n + 9" },
   { n: 259,  count: "174 squares", by: "Kenneth Britton", img: "images/pattern-259.png" , eq: "4n + 2" },
