@@ -216,7 +216,7 @@ const patterns = [
   { n: 210,  count: "3,698 circles", by: "Christine Jenkins", img: "images/pattern-210.png" , eq: "2n^2" },
   { n: 211,  count: "176 Froot Loops", by: "Isabella", img: "images/pattern-211.png" , eq: "4n + 4" },
   { n: 212,  count: "1,979 squares", by: "Charlotte", img: "images/pattern-212.png" , eq: "n^2 + 3n + 1" },
-  { n: 213,  count: "88 squares", by: "Regis", img: "images/pattern-213.png" , eq: "2n + 2" },
+  { n: 213,  count: "88 squares", by: "Regis, grade 5", img: "images/pattern-213.png" , eq: "2n + 2" },
   { n: 214,  count: "1,852 squares", by: "Stephanie", img: "images/pattern-214.png" , eq: "n^2 + 3" },
   { n: 215,  count: "2,070 squares", by: "Andy", img: "images/pattern-215.png" , eq: "n^2 + 5n + 6" },
   { n: 216,  count: "43 C, 88 H, 130 bonds", by: "Eric Appleton", img: "images/pattern-216.png" , eq: "C = n, H = 2n + 2, b = 3n + 1" },
