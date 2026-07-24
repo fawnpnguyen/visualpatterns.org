@@ -139,7 +139,8 @@
     border-top:1px solid var(--rule); background:#fff;
     flex-grow:1; display:flex; align-items:center; justify-content:center;
   }
-  .eq-bar sup{ font-size:0.7em; }
+  .eq-bar sup{ font-size:0.7em; vertical-align:super; line-height:0; }
+  .eq-bar .nobreak{ white-space:nowrap; display:inline; vertical-align:baseline; }
   .eq-bar .frac{
     display:inline-flex; flex-direction:column; align-items:center;
     vertical-align:middle; margin:0 3px; line-height:1.2;
@@ -228,8 +229,11 @@ function buildRanges(){
 // equation, which covers every pattern we've written so far).
 function superscript(s){
   // Matches ^word (like ^2, ^n) or ^(...) with up to one level of nested parens
-  // (covers things like ^(n-2) and ^((n+3)/2)).
-  return s.replace(/\^(\([^()]*(?:\([^()]*\)[^()]*)*\)|-?\w+)/g, "<sup>$1</sup>");
+  // (covers things like ^(n-2) and ^((n+3)/2)). Also grabs the single character
+  // right before the ^ (like the "n" in "n^2") and keeps it glued to the
+  // superscript with a nowrap span, so long equations never wrap mid-term
+  // and leave the exponent stranded on its own line.
+  return s.replace(/([\w)])\^(\([^()]*(?:\([^()]*\)[^()]*)*\)|-?\w+)/g, '<span class="nobreak">$1<sup>$2</sup></span>');
 }
 
 // Formats one "label = expression" piece: keeps the label as plain text,
