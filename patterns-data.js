@@ -264,7 +264,7 @@ const patterns = [
   { n: 258,  count: "267 squares", by: "Koran Dortch", img: "images/pattern-258.png" , eq: "6n + 9" },
   { n: 259,  count: "174 squares", by: "Kenneth Britton", img: "images/pattern-259.png" , eq: "4n + 2" },
   { n: 260,  count: "215 squares", by: "Dontay Givens", img: "images/pattern-260.png" , eq: "5n" },
-  { n: 261,  count: "2,027 squares", by: "Fawn", img: "images/pattern-261.png" , eq: "n^2" },
+  { n: 261,  count: "2,027 squares", by: "Fawn", img: "images/pattern-261.png" , eq: "n^2 + 4n + 6" },
   { n: 262,  count: "219 squares", by: "Ahleeah Friend", img: "images/pattern-262.png" , eq: "5n + 4" },
   { n: 263,  count: "87 squares", by: "Daveon Jones", img: "images/pattern-263.png" , eq: "2n + 1" },
   { n: 264,  count: "127 squares", by: "Theondra Davis", img: "images/pattern-264.png" , eq: "3n - 2" },
