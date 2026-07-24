@@ -4,8 +4,8 @@
 // img (image path), eq (equation as text, e.g. "s = 4n + 1"; leave "" if not yet known).
 
 const patterns = [
-  { n: 1,  count: "1,849 squares", by: "Fawn", img: "images/pattern-1.png" , eq: "n^2" },
-  { n: 2,  count: "85 squares", by: "Fawn", img: "images/pattern-2.png" , eq: "2n - 1" },
+  { n: 1,  count: "3,960 squares", by: "Nicholas, grade 5", img: "images/pattern-1.png" , eq: "2n^2 + 6n + 4" },
+  { n: 2,  count: "136 squares", by: "student, grade 5 (name pending)", img: "images/pattern-2.png" , eq: "3n + 7" },
   { n: 3,  count: "990 squares", by: "Fawn", img: "images/pattern-3.png" , eq: "(n^2 + 3n + 2)/2" },
   { n: 4,  count: "173 squares", by: "Fawn", img: "images/pattern-4.png" , eq: "4n + 1" },
   { n: 5,  count: "3,787 squares", by: "Fawn", img: "images/pattern-5.png" , eq: "2n^2 + 2n + 3" },
@@ -14,7 +14,7 @@ const patterns = [
   { n: 8,  count: "947 squares", by: "Fawn", img: "images/pattern-8.png" , eq: "(n^2 + n + 2)/2" },
   { n: 9,  count: "132 squares", by: "Fawn", img: "images/pattern-9.png" , eq: "3n + 3" },
   { n: 10,  count: "85 squares", by: "Fawn", img: "images/pattern-10.png" , eq: "2n - 1" },
-  { n: 11,  count: "87 squares", by: "Fawn", img: "images/pattern-11.png" , eq: "2n + 1" },
+  { n: 11,  count: "9.671406557e+25 squares", by: "Alexander, grade 5", img: "images/pattern-11.png" , eq: "5*4^(n-1)" },
   { n: 12,  count: "1,936 squares", by: "Fawn", img: "images/pattern-12.png" , eq: "n^2 + 2n + 1" },
   { n: 13,  count: "948 squares", by: "Fawn", img: "images/pattern-13.png" , eq: "(n^2 + n + 4)/2" },
   { n: 14,  count: "259 squares", by: "Katie", img: "images/pattern-14.png" , eq: "6n + 1" },
@@ -116,7 +116,7 @@ const patterns = [
   { n: 110,  count: "88 squares", by: "David Wees", img: "images/pattern-110.png" , eq: "2n + 2" },
   { n: 111,  count: "90 squares", by: "Fawn", img: "images/pattern-111.png" , eq: "2n + 4" },
   { n: 112,  count: "170 squares", by: "Andrew Busch", img: "images/pattern-112.png" , eq: "4n - 2" },
-  { n: 113,  count: "946 squares", by: "Fawn", img: "images/pattern-113.png" , eq: "n(n+1)/2" },
+  { n: 113,  count: "223 squares", by: "Marella, grade 5", img: "images/pattern-113.png" , eq: "5n + 8" },
   { n: 114,  count: "133 squares", by: "Fawn", img: "images/pattern-114.png" , eq: "3n + 4" },
   { n: 115,  count: "301 squares", by: "Fawn", img: "images/pattern-115.png" , eq: "7n" },
   { n: 116,  count: "343 circles", by: "Elaine Watson", img: "images/pattern-116.png" , eq: "8n - 1" },
@@ -216,7 +216,7 @@ const patterns = [
   { n: 210,  count: "3,698 circles", by: "Christine Jenkins", img: "images/pattern-210.png" , eq: "2n^2" },
   { n: 211,  count: "176 Froot Loops", by: "Isabella", img: "images/pattern-211.png" , eq: "4n + 4" },
   { n: 212,  count: "1,979 squares", by: "Charlotte", img: "images/pattern-212.png" , eq: "n^2 + 3n + 1" },
-  { n: 213,  count: "946 squares", by: "Fawn", img: "images/pattern-213.png" , eq: "0.5n^2 + 0.5n" },
+  { n: 213,  count: "88 squares", by: "Regis", img: "images/pattern-213.png" , eq: "2n + 2" },
   { n: 214,  count: "1,852 squares", by: "Stephanie", img: "images/pattern-214.png" , eq: "n^2 + 3" },
   { n: 215,  count: "2,070 squares", by: "Andy", img: "images/pattern-215.png" , eq: "n^2 + 5n + 6" },
   { n: 216,  count: "43 C, 88 H, 130 bonds", by: "Eric Appleton", img: "images/pattern-216.png" , eq: "C = n, H = 2n + 2, b = 3n + 1" },
