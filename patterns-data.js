@@ -296,7 +296,7 @@ const patterns = [
   { n: 290,  count: "87 squares", by: "Fawn", img: "images/pattern-290.png" , eq: "2n + 1" },
   { n: 291,  count: "8,796,093,022,209 squares", by: "Fawn", img: "images/pattern-291.png" , eq: "2^n + 1" },
   { n: 292,  count: "4.3980465e+12 squares", by: "Fawn", img: "images/pattern-292.png" , eq: "2^(n-1) + 2" },
-  { n: 293,  count: "5,419 squares", by: "?", img: "images/pattern-293.png" , eq: "3n^2 - 3n + 1" },
+  { n: 293,  count: "9,374 cubes", by: "Fawn", img: "images/pattern-293.png" , eq: "5n^2 + 3n" },
   { n: 294,  count: "1,808 squares", by: "Fawn", img: "images/pattern-294.png" , eq: "n^2 - n + 2" },
   { n: 295,  count: "171 squares", by: "Fawn", img: "images/pattern-295.png" , eq: "4n - 1" },
   { n: 296,  count: "226 squares", by: "Fawn", img: "images/pattern-296.png" , eq: "4n + 4" },
