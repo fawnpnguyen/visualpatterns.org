@@ -251,6 +251,25 @@ function isBalanced(s){
   return depth === 0;
 }
 
+// Scans left-to-right tracking paren depth, and returns the index of the
+// single "/" that sits at depth 0 (not nested inside any parentheses).
+// Returns -1 if there's zero or more than one top-level slash -- multiple
+// top-level divisions aren't a clean single fraction, so we safely fall
+// back to plain text rather than guessing wrong.
+function findTopLevelSlash(s){
+  let depth = 0;
+  let found = -1;
+  for(let i = 0; i < s.length; i++){
+    if(s[i] === "(") depth++;
+    else if(s[i] === ")") depth--;
+    else if(s[i] === "/" && depth === 0){
+      if(found !== -1) return -1; // more than one -- bail out
+      found = i;
+    }
+  }
+  return found;
+}
+
 function formatPart(part){
   part = part.replace(/sqrt\(/gi, "&radic;(");
   const eqIdx = part.indexOf("=");
@@ -259,12 +278,10 @@ function formatPart(part){
     prefix = part.slice(0, eqIdx + 1) + " ";
     expr = part.slice(eqIdx + 1).trim();
   }
-  const slashParts = expr.split("/");
-  // Only treat this as a real top-level fraction if the slash isn't buried
-  // inside an open parenthesis (e.g. the "/" in "2^((n+3)/2)" stays as-is).
-  if(slashParts.length === 2 && isBalanced(slashParts[0])){
-    const num = superscript(slashParts[0].trim());
-    const den = superscript(slashParts[1].trim());
+  const slashIdx = findTopLevelSlash(expr);
+  if(slashIdx !== -1){
+    const num = superscript(expr.slice(0, slashIdx).trim());
+    const den = superscript(expr.slice(slashIdx + 1).trim());
     return prefix + `<span class="frac"><span class="fnum">${num}</span><span class="fden">${den}</span></span>`;
   }
   return prefix + superscript(expr);
