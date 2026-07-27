@@ -428,7 +428,7 @@ const patterns = [
   { n: 422,  count: "38,829 outside dots", by: "Johnnie Wilson", img: "images/pattern-422.png" , eq: "21n^2" },
   { n: 423,  count: "153,595 squares", by: "Fawn", img: "images/pattern-423.png" , eq: "2n^3 - 3n^2 + 3n - 1" },
   { n: 424,  count: "169 glasses", by: "Mr. Amrine's 8th graders", img: "images/pattern-424.png" , eq: "4n - 3" },
-  { n: 425,  count: "1,849 lemonheads", by: "Mr. Amrine's 8th graders", img: "images/pattern-425.png" , eq: "l(odd) = n^2, l(even) = n^2 - 2n + 5" },
+  { n: 425,  count: "1,849 discs", by: "Mr. Amrine's 8th graders", img: "images/pattern-425.png" , eq: "d(odd) = n^2, d(even) = n^2 - 2n + 5" },
   { n: 426,  count: "1,891 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-426.png" , eq: "n^2 + n - 1" },
   { n: 427,  count: "2,017 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-427.png" , eq: "n^2 + 4n - 4" },
   { n: 428,  count: "257 squares", by: "Mr. Amrine's 8th graders", img: "images/pattern-428.png" , eq: "6n - 1" },
