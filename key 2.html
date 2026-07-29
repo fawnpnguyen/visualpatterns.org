@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equations Key — Visual Patterns</title>
+<meta name="description" content="Answer key with equations for every Visual Patterns pattern.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:      #FFFFFF;
+    --card:    #FFFFFF;
+    --ink:     #2A2A2A;
+    --muted:   #767676;
+    --rule:    #E6E6E3;
+    --accent:  #3F6076;
+    --shadow:  0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.04);
+    --linear:  #FFF3A3;   /* yellow  */
+    --quad:    #CFE8D3;   /* green   */
+    --other:   #E3E3E0;   /* soft gray */
+
+    --display: "Montserrat", system-ui, sans-serif;
+    --body:    "Inter", system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:var(--body); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .back-link{
+    display:block; text-align:center; padding:16px 20px 0;
+    font-size:14px; color:var(--muted); text-decoration:none;
+  }
+  .back-link:hover{ color:var(--ink); }
+
+  header{ text-align:center; padding:36px 20px 10px; }
+  h1{
+    font-family:var(--display); font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase;
+    font-size:clamp(24px, 4vw, 34px); color:var(--ink);
+  }
+  .tagline{ font-style:italic; color:var(--muted); margin-top:10px; font-size:15px; }
+
+  .legend{
+    display:flex; justify-content:center; gap:22px; flex-wrap:wrap;
+    padding:18px 20px 4px; font-size:13px; color:var(--muted);
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .swatch{ width:14px; height:14px; border-radius:3px; display:inline-block; border:1px solid var(--rule); }
+  .swatch.linear{ background:var(--linear); }
+  .swatch.quad{ background:var(--quad); }
+  .swatch.other{ background:var(--other); }
+
+  .print-btn{
+    display:block; margin:14px auto 0;
+    font-family:var(--body); font-size:13px;
+    color:var(--ink); background:var(--card); cursor:pointer;
+    border:1px solid var(--rule); border-radius:20px;
+    padding:8px 18px; box-shadow:var(--shadow);
+  }
+  .print-btn:hover{ box-shadow:0 2px 6px rgba(0,0,0,.08), 0 10px 24px rgba(0,0,0,.08); }
+
+  nav{ border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:16px 12px; margin-top:16px; }
+  .nav-inner{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:6px 22px; }
+  .nav-inner button{
+    font-family:var(--body); font-size:15px; color:var(--muted);
+    background:none; border:none; cursor:pointer;
+    padding:4px 2px 8px; border-bottom:2px solid transparent;
+  }
+  .nav-inner button:hover{ color:var(--ink); }
+  .nav-inner button.active{ color:var(--ink); font-weight:600; border-bottom-color:var(--accent); }
+
+  .section-head{ max-width:1120px; margin:0 auto; padding:28px 24px 6px; }
+  .section-head h2{
+    font-family:var(--display); font-weight:600;
+    font-size:clamp(18px, 3vw, 24px); color:var(--ink);
+  }
+
+  .grid{
+    max-width:1120px; margin:0 auto; padding:16px 24px 70px;
+    display:grid; gap:20px 28px;
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .card{
+    border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); overflow:hidden; background:var(--card);
+  }
+  .thumb{
+    aspect-ratio:16/10; display:flex; align-items:center; justify-content:center;
+    background:#fff;
+  }
+  .thumb.clickable{ cursor:zoom-in; }
+  .thumb.clickable:hover{ box-shadow:inset 0 0 0 2px var(--accent); }
+  .thumb img{ width:100%; height:100%; object-fit:contain; padding:10px; }
+  .placeholder{ color:#bbb; font-size:13px; font-style:italic; }
+
+  #lightbox{
+    position:fixed; inset:0; background:rgba(20,20,20,.86);
+    display:none; align-items:center; justify-content:center;
+    z-index:1000; padding:32px; cursor:zoom-out;
+  }
+  #lightbox.open{ display:flex; }
+  #lightbox .lb-inner{
+    max-width:min(1100px, 92vw); max-height:88vh;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+    cursor:default;
+  }
+  #lightbox img{
+    max-width:100%; max-height:72vh; object-fit:contain;
+    background:#fff; border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  #lightbox .lb-caption{ text-align:center; color:#fff; }
+  #lightbox .lb-caption .label{ font-weight:600; font-size:17px; }
+  #lightbox .lb-caption .by{ display:block; margin-top:6px; font-style:italic; color:#cfcfcf; font-size:14px; }
+  #lightbox .lb-close{
+    position:absolute; top:20px; right:26px;
+    color:#fff; font-size:32px; line-height:1; background:none; border:none;
+    cursor:pointer; opacity:.8;
+  }
+  #lightbox .lb-close:hover{ opacity:1; }
+
+  .caption{ text-align:center; padding:8px 10px 0; font-size:14px; }
+  .caption .label{ font-weight:600; }
+  .caption .by{ display:block; font-style:italic; color:var(--muted); font-size:12.5px; margin-top:2px; }
+
+  .eq-bar{
+    margin-top:10px; padding:10px 8px; text-align:center;
+    font-family:var(--display); font-size:15px; font-weight:600;
+    border-top:1px solid var(--rule); background:#fff;
+  }
+  .eq-bar sup{ font-size:0.7em; }
+  .eq-bar .frac{
+    display:inline-flex; flex-direction:column; align-items:center;
+    vertical-align:middle; margin:0 3px; line-height:1.2;
+  }
+  .eq-bar .fnum{ padding:0 4px 2px; border-bottom:1.5px solid currentColor; }
+  .eq-bar .fden{ padding:2px 4px 0; }
+  .eq-bar.linear{ background:var(--linear); }
+  .eq-bar.quad{ background:var(--quad); }
+  .eq-bar.other{ background:var(--other); }
+  .eq-bar.missing{ color:#bbb; font-weight:400; font-style:italic; font-family:var(--body); font-size:13px; }
+
+  @media print{
+    .back-link, .print-btn, nav{ display:none; }
+    .card{ break-inside:avoid; }
+  }
+</style>
+</head>
+
+<body>
+  <a href="index.html" class="back-link">&larr; Back to Patterns</a>
+
+  <header>
+    <h1>Equations Key</h1>
+    <p class="tagline">Answer key for every pattern &mdash; for teachers only, please.</p>
+  </header>
+
+  <div class="legend">
+    <span><span class="swatch linear"></span> Linear</span>
+    <span><span class="swatch quad"></span> Quadratic</span>
+    <span><span class="swatch other"></span> Other (cubic, exponential, Fibonacci, etc.)</span>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <nav><div class="nav-inner" id="ranges"></div></nav>
+
+  <div class="section-head"><h2 id="range-title">Patterns 1&ndash;50</h2></div>
+  <div class="grid" id="grid"></div>
+
+  <div id="lightbox" onclick="if(event.target===this) closeLightbox()">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <div class="lb-inner">
+      <img id="lb-img" src="" alt="">
+      <div class="lb-caption">
+        <span class="label" id="lb-label"></span>
+        <span class="by" id="lb-by"></span>
+      </div>
+    </div>
+  </div>
+
+<script src="patterns-data.js"></script>
+<script>
+const RANGE_SIZE = 50, MAX = 500;
+const grid = document.getElementById("grid");
+const rangesEl = document.getElementById("ranges");
+const titleEl = document.getElementById("range-title");
+let activeLo = Number(localStorage.getItem("vp-key-active-range")) || 1;
+
+function buildRanges(){
+  for(let lo = 1; lo <= MAX; lo += RANGE_SIZE){
+    const hi = lo + RANGE_SIZE - 1;
+    const b = document.createElement("button");
+    b.textContent = `${lo}\u2013${hi}`;
+    b.dataset.lo = lo;
+    b.onclick = () => { activeLo = lo; localStorage.setItem("vp-key-active-range", lo); render(); };
+    rangesEl.appendChild(b);
+  }
+}
+
+// Classify an equation string as linear, quad, or other, purely from its text.
+// Turns "2n^2 + n" into "2n<sup>2</sup> + n" for real superscript display.
+// You keep typing the easy caret version; this just handles the rendering.
+// Turns "n^2" into a real superscript, and "(n+1)(n+2)/2" into a proper
+// stacked fraction with a horizontal bar (only handles one division per
+// equation, which covers every pattern we've written so far).
+function superscript(s){
+  // Matches ^word (like ^2, ^n) or ^(...) with up to one level of nested parens
+  // (covers things like ^(n-2) and ^((n+3)/2)).
+  return s.replace(/\^(\([^()]*(?:\([^()]*\)[^()]*)*\)|-?\w+)/g, "<sup>$1</sup>");
+}
+
+// Formats one "label = expression" piece: keeps the label as plain text,
+// and only turns the expression into a stacked fraction / superscript.
+function isBalanced(s){
+  let depth = 0;
+  for(const ch of s){
+    if(ch === "(") depth++;
+    if(ch === ")") depth--;
+    if(depth < 0) return false;
+  }
+  return depth === 0;
+}
+
+function formatPart(part){
+  part = part.replace(/sqrt\(/gi, "&radic;(");
+  const eqIdx = part.indexOf("=");
+  let prefix = "", expr = part;
+  if(eqIdx !== -1){
+    prefix = part.slice(0, eqIdx + 1) + " ";
+    expr = part.slice(eqIdx + 1).trim();
+  }
+  const slashParts = expr.split("/");
+  // Only treat this as a real top-level fraction if the slash isn't buried
+  // inside an open parenthesis (e.g. the "/" in "2^((n+3)/2)" stays as-is).
+  if(slashParts.length === 2 && isBalanced(slashParts[0])){
+    const num = superscript(slashParts[0].trim());
+    const den = superscript(slashParts[1].trim());
+    return prefix + `<span class="frac"><span class="fnum">${num}</span><span class="fden">${den}</span></span>`;
+  }
+  return prefix + superscript(expr);
+}
+
+// Splits on commas first (for multi-quantity equations like "s = ..., c = ...")
+// so a fraction in one part never accidentally swallows the other parts.
+function formatEquation(eq){
+  return eq.split(",").map(part => formatPart(part.trim())).join(", ");
+}
+
+function classify(eq){
+  if(!eq || !eq.trim()) return "missing";
+  // absolute-value patterns are V-shaped, not a straight line -> "other"
+  if(/abs\s*\(/i.test(eq) || /\|.*\|/.test(eq)) return "other";
+  // exponential growth (something raised to the n, like 3^n or 2^n) is always "other"
+  if(/\^\s*n\b/i.test(eq)) return "other";
+  const hasHigherPower = /n\s*(\^|\*\*)\s*[3-9]/i.test(eq);
+  if(hasHigherPower) return "other";
+  const hasSquare = /n\s*(\^|\*\*)?\s*2|n\s*²|n\s*\*\s*n/i.test(eq);
+  if(hasSquare) return "quad";
+  const hasN = /n/i.test(eq);
+  if(hasN) return "linear";
+  return "other";
+}
+
+function escAttr(s){
+  return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+}
+
+function render(){
+  const hi = activeLo + RANGE_SIZE - 1;
+  titleEl.textContent = `Patterns ${activeLo}\u2013${hi}`;
+  [...rangesEl.children].forEach(b => b.classList.toggle("active", Number(b.dataset.lo) === activeLo));
+
+  const inRange = patterns.filter(p => p.n >= activeLo && p.n <= hi).sort((a,b) => a.n - b.n);
+  grid.innerHTML = inRange.map(cardHTML).join("") ||
+    `<p style="grid-column:1/-1;color:var(--muted);font-style:italic;">No patterns in this range yet.</p>`;
+}
+
+function cardHTML(p){
+  const hasImg = !!p.img;
+  const media = hasImg
+    ? `<img src="${escAttr(p.img)}" alt="Pattern ${p.n}" onerror="this.closest('.thumb').classList.remove('clickable'); this.parentNode.innerHTML='<span class=placeholder>no image yet</span>'">`
+    : `<span class="placeholder">no image yet</span>`;
+  const by = p.by ? `<span class="by">by ${p.by}</span>` : "";
+  const label = p.count ? `Pattern ${p.n} &middot; ${p.count}` : `Pattern ${p.n} &middot; <em>count TBD</em>`;
+
+  const cls = classify(p.eq);
+  const eqText = p.eq && p.eq.trim() ? formatEquation(p.eq) : "equation not yet added";
+
+  const dataAttrs = hasImg
+    ? ` data-img="${escAttr(p.img)}" data-label="${escAttr(label)}" data-by="${escAttr(p.by||"")}"`
+    : "";
+
+  return `<div class="card">
+      <div class="thumb${hasImg ? " clickable" : ""}"${dataAttrs}>${media}</div>
+      <div class="caption">
+        <span class="label">${label}</span>${by}
+      </div>
+      <div class="eq-bar ${cls}">${eqText}</div>
+    </div>`;
+}
+
+function openLightbox(img, label, by){
+  document.getElementById("lb-img").src = img;
+  document.getElementById("lb-label").innerHTML = label;
+  document.getElementById("lb-by").textContent = by ? `by ${by}` : "";
+  document.getElementById("lightbox").classList.add("open");
+}
+
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("open");
+}
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeLightbox();
+});
+
+grid.addEventListener("click", (e) => {
+  const thumb = e.target.closest(".thumb.clickable");
+  if(!thumb) return;
+  openLightbox(thumb.dataset.img, thumb.dataset.label, thumb.dataset.by);
+});
+
+buildRanges();
+render();
+</script>
+</body>
+</html>

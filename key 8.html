@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equations Key — Visual Patterns</title>
+<meta name="description" content="Answer key with equations for every Visual Patterns pattern.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:      #FFFFFF;
+    --card:    #FFFFFF;
+    --ink:     #2A2A2A;
+    --muted:   #767676;
+    --rule:    #E6E6E3;
+    --accent:  #3F6076;
+    --shadow:  0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.04);
+    --linear:  #FFF3A3;   /* yellow  */
+    --quad:    #CFE8D3;   /* green   */
+
+    --display: "Montserrat", system-ui, sans-serif;
+    --body:    "Inter", system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:var(--body); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .back-link{
+    display:block; text-align:center; padding:16px 20px 0;
+    font-size:14px; color:var(--muted); text-decoration:none;
+  }
+  .back-link:hover{ color:var(--ink); }
+
+  header{ text-align:center; padding:36px 20px 10px; }
+  h1{
+    font-family:var(--display); font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase;
+    font-size:clamp(24px, 4vw, 34px); color:var(--ink);
+  }
+  .tagline{ font-style:italic; color:var(--muted); margin-top:10px; font-size:15px; }
+
+  .legend{
+    display:flex; justify-content:center; gap:22px; flex-wrap:wrap;
+    padding:18px 20px 4px; font-size:13px; color:var(--muted);
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .swatch{ width:14px; height:14px; border-radius:3px; display:inline-block; border:1px solid var(--rule); }
+  .swatch.linear{ background:var(--linear); }
+  .swatch.quad{ background:var(--quad); }
+  .swatch.other{ background:#fff; }
+
+  .print-btn{
+    display:block; margin:14px auto 0;
+    font-family:var(--body); font-size:13px;
+    color:var(--ink); background:var(--card); cursor:pointer;
+    border:1px solid var(--rule); border-radius:20px;
+    padding:8px 18px; box-shadow:var(--shadow);
+  }
+  .print-btn:hover{ box-shadow:0 2px 6px rgba(0,0,0,.08), 0 10px 24px rgba(0,0,0,.08); }
+
+  nav{ border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:16px 12px; margin-top:16px; }
+  .nav-inner{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:6px 22px; }
+  .nav-inner button{
+    font-family:var(--body); font-size:15px; color:var(--muted);
+    background:none; border:none; cursor:pointer;
+    padding:4px 2px 8px; border-bottom:2px solid transparent;
+  }
+  .nav-inner button:hover{ color:var(--ink); }
+  .nav-inner button.active{ color:var(--ink); font-weight:600; border-bottom-color:var(--accent); }
+
+  .section-head{ max-width:1120px; margin:0 auto; padding:28px 24px 6px; }
+  .section-head h2{
+    font-family:var(--display); font-weight:600;
+    font-size:clamp(18px, 3vw, 24px); color:var(--ink);
+  }
+
+  .grid{
+    max-width:1120px; margin:0 auto; padding:16px 24px 70px;
+    display:grid; gap:20px 28px;
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .card{
+    border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); overflow:hidden; background:var(--card);
+  }
+  .thumb{
+    aspect-ratio:16/10; display:flex; align-items:center; justify-content:center;
+    background:#fff;
+  }
+  .thumb img{ width:100%; height:100%; object-fit:contain; padding:10px; }
+  .placeholder{ color:#bbb; font-size:13px; font-style:italic; }
+
+  .caption{ text-align:center; padding:8px 10px 0; font-size:14px; }
+  .caption .label{ font-weight:600; }
+  .caption .by{ display:block; font-style:italic; color:var(--muted); font-size:12.5px; margin-top:2px; }
+
+  .eq-bar{
+    margin-top:10px; padding:10px 8px; text-align:center;
+    font-family:var(--display); font-size:15px; font-weight:600;
+    border-top:1px solid var(--rule); background:#fff;
+  }
+  .eq-bar.linear{ background:var(--linear); }
+  .eq-bar.quad{ background:var(--quad); }
+  .eq-bar.missing{ color:#bbb; font-weight:400; font-style:italic; font-family:var(--body); font-size:13px; }
+
+  @media print{
+    .back-link, .print-btn, nav{ display:none; }
+    .card{ break-inside:avoid; }
+  }
+</style>
+</head>
+
+<body>
+  <a href="index.html" class="back-link">&larr; Back to Patterns</a>
+
+  <header>
+    <h1>Equations Key</h1>
+    <p class="tagline">Answer key for every pattern &mdash; for teachers only, please.</p>
+  </header>
+
+  <div class="legend">
+    <span><span class="swatch linear"></span> Linear</span>
+    <span><span class="swatch quad"></span> Quadratic</span>
+    <span><span class="swatch other"></span> Other (cubic, Fibonacci, etc.)</span>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <nav><div class="nav-inner" id="ranges"></div></nav>
+
+  <div class="section-head"><h2 id="range-title">Patterns 1&ndash;50</h2></div>
+  <div class="grid" id="grid"></div>
+
+<script src="patterns-data.js"></script>
+<script>
+const RANGE_SIZE = 50, MAX = 500;
+const grid = document.getElementById("grid");
+const rangesEl = document.getElementById("ranges");
+const titleEl = document.getElementById("range-title");
+let activeLo = Number(localStorage.getItem("vp-key-active-range")) || 1;
+
+function buildRanges(){
+  for(let lo = 1; lo <= MAX; lo += RANGE_SIZE){
+    const hi = lo + RANGE_SIZE - 1;
+    const b = document.createElement("button");
+    b.textContent = `${lo}\u2013${hi}`;
+    b.dataset.lo = lo;
+    b.onclick = () => { activeLo = lo; localStorage.setItem("vp-key-active-range", lo); render(); };
+    rangesEl.appendChild(b);
+  }
+}
+
+// Classify an equation string as linear, quad, or other, purely from its text.
+function classify(eq){
+  if(!eq || !eq.trim()) return "missing";
+  const hasSquare = /n\s*(\^|\*\*)?\s*2|n\s*²|n\s*\*\s*n/i.test(eq);
+  if(hasSquare) return "quad";
+  const hasN = /n/i.test(eq);
+  if(hasN) return "linear";
+  return "other";
+}
+
+function escAttr(s){
+  return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+}
+
+function render(){
+  const hi = activeLo + RANGE_SIZE - 1;
+  titleEl.textContent = `Patterns ${activeLo}\u2013${hi}`;
+  [...rangesEl.children].forEach(b => b.classList.toggle("active", Number(b.dataset.lo) === activeLo));
+
+  const inRange = patterns.filter(p => p.n >= activeLo && p.n <= hi).sort((a,b) => a.n - b.n);
+  grid.innerHTML = inRange.map(cardHTML).join("") ||
+    `<p style="grid-column:1/-1;color:var(--muted);font-style:italic;">No patterns in this range yet.</p>`;
+}
+
+function cardHTML(p){
+  const media = p.img
+    ? `<img src="${escAttr(p.img)}" alt="Pattern ${p.n}" onerror="this.parentNode.innerHTML='<span class=placeholder>no image yet</span>'">`
+    : `<span class="placeholder">no image yet</span>`;
+  const by = p.by ? `<span class="by">by ${p.by}</span>` : "";
+  const label = p.count ? `Pattern ${p.n} &middot; ${p.count}` : `Pattern ${p.n} &middot; <em>count TBD</em>`;
+
+  const cls = classify(p.eq);
+  const eqText = p.eq && p.eq.trim() ? p.eq : "equation not yet added";
+
+  return `<div class="card">
+      <div class="thumb">${media}</div>
+      <div class="caption">
+        <span class="label">${label}</span>${by}
+      </div>
+      <div class="eq-bar ${cls}">${eqText}</div>
+    </div>`;
+}
+
+buildRanges();
+render();
+</script>
+</body>
+</html>
