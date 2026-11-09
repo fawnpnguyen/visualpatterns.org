@@ -1,11 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-<rect x="1" y="1" width="8" height="8" rx="1.5" fill="#F2C230"/>
-<rect x="12" y="1" width="8" height="8" rx="1.5" fill="#5FAE6E"/>
-<rect x="23" y="1" width="8" height="8" rx="1.5" fill="#9A9DA1"/>
-<rect x="1" y="12" width="8" height="8" rx="1.5" fill="#5FAE6E"/>
-<rect x="12" y="12" width="8" height="8" rx="1.5" fill="#5FAE6E"/>
-<rect x="23" y="12" width="8" height="8" rx="1.5" fill="#9A9DA1"/>
-<rect x="1" y="23" width="8" height="8" rx="1.5" fill="#9A9DA1"/>
-<rect x="12" y="23" width="8" height="8" rx="1.5" fill="#9A9DA1"/>
-<rect x="23" y="23" width="8" height="8" rx="1.5" fill="#9A9DA1"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 978 978"><style>.i{fill:#303235}.y{fill:#F2C230}.g{fill:#5FAE6E}.r{fill:#B3B6BA}@media (prefers-color-scheme:dark){.i{fill:#D6D8DB}}</style><rect class="y" x="36" y="36" width="117" height="117"/><rect class="g" x="277" y="36" width="209" height="207"/><rect class="g" x="36" y="277" width="207" height="209"/><rect class="g" x="277" y="277" width="209" height="209"/><rect class="r" x="609" y="36" width="254" height="252"/><rect class="r" x="609" y="322" width="254" height="254"/><rect class="r" x="36" y="609" width="252" height="254"/><rect class="r" x="322" y="609" width="254" height="254"/><rect class="r" x="609" y="609" width="254" height="254"/><rect class="i" x="-10" y="-10" width="209" height="57"/><rect class="i" x="-10" y="142" width="209" height="57"/><rect class="i" x="-10" y="-10" width="57" height="209"/><rect class="i" x="142" y="-10" width="57" height="209"/><rect class="i" x="232" y="-10" width="299" height="57"/><rect class="i" x="-10" y="232" width="57" height="299"/><rect class="i" x="-10" y="475" width="541" height="56"/><rect class="i" x="475" y="-10" width="56" height="541"/><rect class="i" x="232" y="-10" width="56" height="541"/><rect class="i" x="-10" y="232" width="541" height="56"/><rect class="i" x="565" y="-10" width="343" height="57"/><rect class="i" x="-10" y="565" width="57" height="343"/><rect class="i" x="-10" y="852" width="918" height="56"/><rect class="i" x="852" y="-10" width="56" height="918"/><rect class="i" x="-10" y="565" width="918" height="55"/><rect class="i" x="565" y="-10" width="55" height="918"/><rect class="i" x="277" y="565" width="56" height="343"/><rect class="i" x="565" y="277" width="343" height="56"/></svg>
